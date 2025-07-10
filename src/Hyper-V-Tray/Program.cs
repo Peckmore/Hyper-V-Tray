@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Management;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace HyperVTray
@@ -587,7 +588,9 @@ namespace HyperVTray
         }
         private static void SetTrayIcon()
         {
-            var iconWidth = PInvoke.GetTrayIconWidth(NotifyIcon.GetHandle());
+            var window = typeof(NotifyIcon).GetField("_window", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(NotifyIcon);
+            var windowHandle = (IntPtr)window!.GetType().GetProperty("Handle")!.GetValue(window)!;
+            var iconWidth = PInvoke.GetTrayIconWidth(windowHandle);
             Debug.Assert(iconWidth > 0, "Icon width is 0");
             var iconSize = new Size(iconWidth, iconWidth);
             NotifyIcon.Icon = new Icon(ResourceHelper.Icon_HyperV, iconSize);
