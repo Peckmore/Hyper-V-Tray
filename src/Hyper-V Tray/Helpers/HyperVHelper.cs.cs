@@ -114,6 +114,42 @@ namespace HyperVTray.Helpers
             // Start our WMI Event Watcher so we receive events on virtual machine state changes.
             WmiEventWatcher.Start();
         }
+        public static bool IsVmOff(VmState state)
+        {
+            // Determine if the VmState enum value is for an off state.
+            return state switch
+            {
+                VmState.Disabled or VmState.OffCritical => true,
+                _ => false,
+            };
+        }
+        public static bool IsVmPaused(VmState state)
+        {
+            // Determine if the VmState enum value is for a paused state.
+            return state switch
+            {
+                VmState.Paused or VmState.Quiesce or VmState.PausedCritical => true,
+                _ => false,
+            };
+        }
+        public static bool IsVmRunning(VmState state)
+        {
+            // Determine if the VmState enum value is for a running state.
+            return state switch
+            {
+                VmState.Enabled or VmState.RunningCritical => true,
+                _ => false,
+            };
+        }
+        public static bool IsVmSaved(VmState state)
+        {
+            // Determine if the VmState enum value is for a saved state.
+            return state switch
+            {
+                VmState.Suspended or VmState.Offline or VmState.SavedCritical or VmState.FastSaved or VmState.FastSavedCritical => true,
+                _ => false,
+            };
+        }
         public static bool RequestVmShutdown(string virtualMachineName)
         {
             // Get the WMI Management Object for the virtual machine we are interested in.
