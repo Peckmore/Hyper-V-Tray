@@ -61,7 +61,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxC&amp;amp;onnect....
+        ///   Looks up a localized string similar to C&amp;amp;onnect....
         /// </summary>
         internal static string Command_Connect {
             get {
@@ -70,7 +70,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xx&amp;amp;Pause.
+        ///   Looks up a localized string similar to &amp;amp;Pause.
         /// </summary>
         internal static string Command_Pause {
             get {
@@ -79,16 +79,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxPause All.
-        /// </summary>
-        internal static string Command_PauseAll {
-            get {
-                return ResourceManager.GetString("Command_PauseAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to xx&amp;amp;Reset.
+        ///   Looks up a localized string similar to &amp;amp;Reset.
         /// </summary>
         internal static string Command_Reset {
             get {
@@ -97,16 +88,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxReset All.
-        /// </summary>
-        internal static string Command_ResetAll {
-            get {
-                return ResourceManager.GetString("Command_ResetAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to xxRes&amp;amp;ume.
+        ///   Looks up a localized string similar to Res&amp;amp;ume.
         /// </summary>
         internal static string Command_Resume {
             get {
@@ -115,16 +97,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxResume All.
-        /// </summary>
-        internal static string Command_ResumeAll {
-            get {
-                return ResourceManager.GetString("Command_ResumeAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to xx&amp;amp;Save.
+        ///   Looks up a localized string similar to &amp;amp;Save.
         /// </summary>
         internal static string Command_Save {
             get {
@@ -133,16 +106,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxSave All.
-        /// </summary>
-        internal static string Command_SaveAll {
-            get {
-                return ResourceManager.GetString("Command_SaveAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to xxShut Do&amp;amp;wn....
+        ///   Looks up a localized string similar to Shut Do&amp;amp;wn....
         /// </summary>
         internal static string Command_ShutDown {
             get {
@@ -151,16 +115,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxShutdown All.
-        /// </summary>
-        internal static string Command_ShutDownAll {
-            get {
-                return ResourceManager.GetString("Command_ShutDownAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to xx&amp;amp;Start.
+        ///   Looks up a localized string similar to &amp;amp;Start.
         /// </summary>
         internal static string Command_Start {
             get {
@@ -169,16 +124,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxStart All.
-        /// </summary>
-        internal static string Command_StartAll {
-            get {
-                return ResourceManager.GetString("Command_StartAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to xx&amp;amp;Turn Off....
+        ///   Looks up a localized string similar to &amp;amp;Turn Off....
         /// </summary>
         internal static string Command_TurnOff {
             get {
@@ -187,16 +133,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxTurn Off All.
-        /// </summary>
-        internal static string Command_TurnOffAll {
-            get {
-                return ResourceManager.GetString("Command_TurnOffAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to xxHyper-V Manager.
+        ///   Looks up a localized string similar to Hyper-V Manager.
         /// </summary>
         internal static string Menu_HyperVManager {
             get {
@@ -268,7 +205,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to StateCritical.
+        ///   Looks up a localized string similar to xxCritical.
         /// </summary>
         internal static string State_Critical {
             get {
@@ -277,16 +214,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to StateOff.
-        /// </summary>
-        internal static string State_Off {
-            get {
-                return ResourceManager.GetString("State_Off", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to StatePaused.
+        ///   Looks up a localized string similar to xxPaused.
         /// </summary>
         internal static string State_Paused {
             get {
@@ -295,7 +223,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to StateRunning.
+        ///   Looks up a localized string similar to xxRunning.
         /// </summary>
         internal static string State_Running {
             get {
@@ -304,20 +232,11 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to StateSaved.
+        ///   Looks up a localized string similar to xxSaved.
         /// </summary>
         internal static string State_Saved {
             get {
                 return ResourceManager.GetString("State_Saved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unknown Virtual Machine.
-        /// </summary>
-        internal static string String_UnknownVirtualMachine {
-            get {
-                return ResourceManager.GetString("String_UnknownVirtualMachine", resourceCulture);
             }
         }
         
