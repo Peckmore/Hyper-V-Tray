@@ -176,161 +176,160 @@ namespace HyperVTray
             ContextMenu.MenuItems.Clear();
 
             // Get all VMs.
-            if (HyperVHelper.GetVirtualMachines()?.ToList() is {} virtualMachines)
+            var virtualMachines = HyperVHelper.GetVirtualMachines().ToList();
+
+            // Create a menu entry for each VM.
+            foreach (var virtualMachine in virtualMachines)
             {
-                // Create a menu entry for each VM.
-                foreach (var virtualMachine in virtualMachines)
+                // Get the VM name.
+                var virtualMachineName = virtualMachine["ElementName"].ToString();
+
+                if (virtualMachineName != null)
                 {
-                    // Get the VM name.
-                    var virtualMachineName = virtualMachine["ElementName"].ToString();
+                    // Get the VM state.
+                    var virtualMachineStatus = (VmState)Convert.ToInt32(virtualMachine["EnabledState"]);
 
-                    if (virtualMachineName != null)
+                    // Generate the menu entry title for the VM.
+                    var virtualMachineMenuTitle = virtualMachineName;
+                    if (virtualMachineStatus != VmState.Disabled) // Stopped
                     {
-                        // Get the VM state.
-                        var virtualMachineStatus = (VmState)Convert.ToInt32(virtualMachine["EnabledState"]);
+                        virtualMachineMenuTitle += $" [{HyperVHelper.VmStateToString(virtualMachineStatus)}]";
+                    }
 
-                        // Generate the menu entry title for the VM.
-                        var virtualMachineMenuTitle = virtualMachineName;
-                        if (virtualMachineStatus != VmState.Disabled) // Stopped
+                    // Create VM menu item.
+                    var virtualMachineMenu = new MenuItem(virtualMachineMenuTitle) { Name = virtualMachineName };
+                    var canResume = HyperVHelper.IsVmPaused(virtualMachineStatus); // Paused
+                    var canStart = HyperVHelper.IsVmOff(virtualMachineStatus) || HyperVHelper.IsVmSaved(virtualMachineStatus); // Stopped or Saved
+
+                    // Now generate control menu items for VM.
+
+                    // Connect
+                    if (_vmConnectPath != null)
+                    {
+                        var connectMenuItem = new MenuItem(ResourceHelper.Command_Connect);
+                        connectMenuItem.Click += (_, _) => ConnectToVm(virtualMachineName);
+                        virtualMachineMenu.MenuItems.Add(connectMenuItem);
+                        virtualMachineMenu.MenuItems.Add(new MenuItem("-"));
+                    }
+
+                    if (canStart)
+                    {
+                        // Start
+                        var startMenuItem = new MenuItem(ResourceHelper.Command_Start);
+                        startMenuItem.Click += StartMenuItem_Click;
+                        virtualMachineMenu.MenuItems.Add(startMenuItem);
+                    }
+                    else
+                    {
+                        // Turn Off
+                        var stopMenuItem = new MenuItem(ResourceHelper.Command_TurnOff);
+                        stopMenuItem.Click += TurnOffMenuItem_Click;
+                        virtualMachineMenu.MenuItems.Add(stopMenuItem);
+
+                        // Shut Down
+                        if (!canResume)
                         {
-                            virtualMachineMenuTitle += $" [{HyperVHelper.VmStateToString(virtualMachineStatus)}]";
+                            var shutMenuDownItem = new MenuItem(ResourceHelper.Command_ShutDown);
+                            shutMenuDownItem.Click += ShutDownMenuItem_Click;
+                            virtualMachineMenu.MenuItems.Add(shutMenuDownItem);
                         }
 
-                        // Create VM menu item.
-                        var virtualMachineMenu = new MenuItem(virtualMachineMenuTitle) { Name = virtualMachineName };
-                        var canResume = IsVmPaused(virtualMachineStatus); // Paused
-                        var canStart = IsVmOff(virtualMachineStatus) || IsVmSaved(virtualMachineStatus); // Stopped or Saved
+                        // Save
+                        var saveMenuStateItem = new MenuItem(ResourceHelper.Command_Save);
+                        saveMenuStateItem.Click += SaveMenuItem_Click;
+                        virtualMachineMenu.MenuItems.Add(saveMenuStateItem);
 
-                        // Now generate control menu items for VM.
-
-                        // Connect
-                        if (_vmConnectPath != null)
+                        virtualMachineMenu.MenuItems.Add(new MenuItem("-"));
+                        if (canResume)
                         {
-                            var connectMenuItem = new MenuItem(ResourceHelper.Command_Connect);
-                            connectMenuItem.Click += (_, _) => ConnectToVm(virtualMachineName);
-                            virtualMachineMenu.MenuItems.Add(connectMenuItem);
-                            virtualMachineMenu.MenuItems.Add(new MenuItem("-"));
-                        }
-
-                        if (canStart)
-                        {
-                            // Start
-                            var startMenuItem = new MenuItem(ResourceHelper.Command_Start);
-                            startMenuItem.Click += StartMenuItem_Click;
-                            virtualMachineMenu.MenuItems.Add(startMenuItem);
+                            // Resume
+                            var resumeMenuItem = new MenuItem(ResourceHelper.Command_Resume);
+                            resumeMenuItem.Click += ResumeMenuItem_Click;
+                            virtualMachineMenu.MenuItems.Add(resumeMenuItem);
                         }
                         else
                         {
-                            // Turn Off
-                            var stopMenuItem = new MenuItem(ResourceHelper.Command_TurnOff);
-                            stopMenuItem.Click += TurnOffMenuItem_Click;
-                            virtualMachineMenu.MenuItems.Add(stopMenuItem);
-
-                            // Shut Down
-                            if (!canResume)
-                            {
-                                var shutMenuDownItem = new MenuItem(ResourceHelper.Command_ShutDown);
-                                shutMenuDownItem.Click += ShutDownMenuItem_Click;
-                                virtualMachineMenu.MenuItems.Add(shutMenuDownItem);
-                            }
-
-                            // Save
-                            var saveMenuStateItem = new MenuItem(ResourceHelper.Command_Save);
-                            saveMenuStateItem.Click += SaveMenuItem_Click;
-                            virtualMachineMenu.MenuItems.Add(saveMenuStateItem);
-
-                            virtualMachineMenu.MenuItems.Add(new MenuItem("-"));
-                            if (canResume)
-                            {
-                                // Resume
-                                var resumeMenuItem = new MenuItem(ResourceHelper.Command_Resume);
-                                resumeMenuItem.Click += ResumeMenuItem_Click;
-                                virtualMachineMenu.MenuItems.Add(resumeMenuItem);
-                            }
-                            else
-                            {
-                                // Pause
-                                var pauseMenuItem = new MenuItem(ResourceHelper.Command_Pause);
-                                pauseMenuItem.Click += PauseMenuItem_Click;
-                                virtualMachineMenu.MenuItems.Add(pauseMenuItem);
-                            }
-
-                            // Reset
-                            var resetMenuItem = new MenuItem(ResourceHelper.Command_Reset);
-                            resetMenuItem.Click += ResetMenuItem_Click;
-                            virtualMachineMenu.MenuItems.Add(resetMenuItem);
+                            // Pause
+                            var pauseMenuItem = new MenuItem(ResourceHelper.Command_Pause);
+                            pauseMenuItem.Click += PauseMenuItem_Click;
+                            virtualMachineMenu.MenuItems.Add(pauseMenuItem);
                         }
 
-                        // Add VM menu item to root menu.
-                        ContextMenu.MenuItems.Add(virtualMachineMenu);
+                        // Reset
+                        var resetMenuItem = new MenuItem(ResourceHelper.Command_Reset);
+                        resetMenuItem.Click += ResetMenuItem_Click;
+                        virtualMachineMenu.MenuItems.Add(resetMenuItem);
                     }
-                }
 
-                if (virtualMachines.Any())
+                    // Add VM menu item to root menu.
+                    ContextMenu.MenuItems.Add(virtualMachineMenu);
+                }
+            }
+
+            if (virtualMachines.Any())
+            {
+                ContextMenu.MenuItems.Add(new MenuItem("-"));
+
+                // Create a root menu item for the `All Virtual Machines` entry.
+                var vmItem = new MenuItem(ResourceHelper.Menu_AllVirtualMachines);
+
+                var subItems = new List<MenuItem>();
+                var isOff = virtualMachines.Any(vm => HyperVHelper.IsVmOff((VmState)Convert.ToInt32(vm["EnabledState"])));
+                var isPaused = virtualMachines.Any(vm => HyperVHelper.IsVmPaused((VmState)Convert.ToInt32(vm["EnabledState"])));
+                var isRunning = virtualMachines.Any(vm => HyperVHelper.IsVmRunning((VmState)Convert.ToInt32(vm["EnabledState"])));
+                var isSaved = virtualMachines.Any(vm => HyperVHelper.IsVmSaved((VmState)Convert.ToInt32(vm["EnabledState"])));
+
+                // Start
+                if (isOff || isSaved)
                 {
-                    ContextMenu.MenuItems.Add(new MenuItem("-"));
-
-                    // Create a root menu item for the VM.
-                    var vmItem = new MenuItem(ResourceHelper.Menu_AllVirtualMachines);
-
-                    var subItems = new List<MenuItem>();
-                    var isOff = virtualMachines.Any(vm => IsVmOff((VmState)Convert.ToInt32(vm["EnabledState"])));
-                    var isPaused = virtualMachines.Any(vm => IsVmPaused((VmState)Convert.ToInt32(vm["EnabledState"])));
-                    var isRunning = virtualMachines.Any(vm => IsVmRunning((VmState)Convert.ToInt32(vm["EnabledState"])));
-                    var isSaved = virtualMachines.Any(vm => IsVmSaved((VmState)Convert.ToInt32(vm["EnabledState"])));
-
-                    // Start
-                    if (isOff || isSaved)
-                    {
-                        subItems.Add(new MenuItem(ResourceHelper.Command_Start)); //MenuItemStartAll_Click));
-                    }
-
-                    // Turn Off
-                    if (isRunning || isPaused)
-                    {
-                        subItems.Add(new MenuItem(ResourceHelper.Command_TurnOff)); //MenuItemStopAll_Click));
-                    }
-
-                    // Shut Down
-                    if (isRunning)
-                    {
-                        subItems.Add(new MenuItem(ResourceHelper.Command_ShutDown)); //MenuItemShutdownAll_Click));
-                    }
-
-                    // Save
-                    if (isRunning || isPaused)
-                    {
-                        subItems.Add(new MenuItem(ResourceHelper.Command_Save)); //MenuItemSaveAll_Click));
-                    }
-
-                    if (subItems.Any() && isRunning || isPaused)
-                    {
-                        subItems.Add(new MenuItem("-"));
-                    }
-
-                    // Resume
-                    if (isPaused)
-                    {
-                        subItems.Add(new MenuItem(ResourceHelper.Command_Resume)); //MenuItemResumeAll_Click));
-                    }
-
-                    // Pause
-                    if (isRunning)
-                    {
-                        subItems.Add(new MenuItem(ResourceHelper.Command_Pause)); //MenuItemPauseAll_Click));
-                    }
-
-                    // Reset
-                    if (isRunning || isPaused)
-                    {
-                        subItems.Add(new MenuItem(ResourceHelper.Command_Reset)); //MenuItemResetAll_Click));
-                    }
-
-                    vmItem.MenuItems.AddRange(subItems.ToArray());
-
-                    // Add the VM to the context menu.
-                    ContextMenu.MenuItems.Add(vmItem);
+                    subItems.Add(new MenuItem(ResourceHelper.Command_Start)); //MenuItemStartAll_Click));
                 }
+
+                // Turn Off
+                if (isRunning || isPaused)
+                {
+                    subItems.Add(new MenuItem(ResourceHelper.Command_TurnOff)); //MenuItemStopAll_Click));
+                }
+
+                // Shut Down
+                if (isRunning)
+                {
+                    subItems.Add(new MenuItem(ResourceHelper.Command_ShutDown)); //MenuItemShutdownAll_Click));
+                }
+
+                // Save
+                if (isRunning || isPaused)
+                {
+                    subItems.Add(new MenuItem(ResourceHelper.Command_Save)); //MenuItemSaveAll_Click));
+                }
+
+                if (subItems.Any() && isRunning || isPaused)
+                {
+                    subItems.Add(new MenuItem("-"));
+                }
+
+                // Resume
+                if (isPaused)
+                {
+                    subItems.Add(new MenuItem(ResourceHelper.Command_Resume)); //MenuItemResumeAll_Click));
+                }
+
+                // Pause
+                if (isRunning)
+                {
+                    subItems.Add(new MenuItem(ResourceHelper.Command_Pause)); //MenuItemPauseAll_Click));
+                }
+
+                // Reset
+                if (isRunning || isPaused)
+                {
+                    subItems.Add(new MenuItem(ResourceHelper.Command_Reset)); //MenuItemResetAll_Click));
+                }
+
+                vmItem.MenuItems.AddRange(subItems.ToArray());
+
+                // Add the VM to the context menu.
+                ContextMenu.MenuItems.Add(vmItem);
             }
 
             // Add `Hyper-V Manager` menu item.
@@ -347,54 +346,6 @@ namespace HyperVTray
             var exitItem = new MenuItem("Exit");
             exitItem.Click += ExitMenuItem_Click;
             ContextMenu.MenuItems.Add(exitItem);
-        
-        }
-        private static bool IsVmCritical(VmState state)
-        {
-            // Determine if the VmState enum value is for a critical state.
-            return state switch
-            {
-                VmState.RunningCritical or VmState.OffCritical or VmState.PausedCritical or VmState.SavedCritical
-                or VmState.FastSavedCritical or VmState.StartingCritical or VmState.SavingCritical or VmState.FastSavingCritical
-                or VmState.StoppingCritical or VmState.PausingCritical or VmState.ResumingCritical or VmState.ResetCritical => true,
-                _ => false,
-            };
-        }
-        private static bool IsVmOff(VmState state)
-        {
-            // Determine if the VmState enum value is for an off state.
-            return state switch
-            {
-                VmState.Disabled or VmState.OffCritical => true,
-                _ => false,
-            };
-        }
-        private static bool IsVmPaused(VmState state)
-        {
-            // Determine if the VmState enum value is for a paused state.
-            return state switch
-            {
-                VmState.Paused or VmState.Quiesce or VmState.PausedCritical => true,
-                _ => false,
-            };
-        }
-        private static bool IsVmRunning(VmState state)
-        {
-            // Determine if the VmState enum value is for a running state.
-            return state switch
-            {
-                VmState.Enabled or VmState.RunningCritical => true,
-                _ => false,
-            };
-        }
-        private static bool IsVmSaved(VmState state)
-        {
-            // Determine if the VmState enum value is for a saved state.
-            return state switch
-            {
-                VmState.Suspended or VmState.Offline or VmState.SavedCritical or VmState.FastSaved or VmState.FastSavedCritical => true,
-                _ => false,
-            };
         }
         [STAThread]
         private static void Main()
