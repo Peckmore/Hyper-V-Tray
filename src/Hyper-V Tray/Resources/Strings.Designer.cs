@@ -61,11 +61,20 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxAll Virtual Machines.
+        ///   Looks up a localized string similar to All Virtual Machines.
         /// </summary>
         internal static string Menu_AllVirtualMachines {
             get {
                 return ResourceManager.GetString("Menu_AllVirtualMachines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown Virtual Machine.
+        /// </summary>
+        internal static string String_UnknownVirtualMachine {
+            get {
+                return ResourceManager.GetString("String_UnknownVirtualMachine", resourceCulture);
             }
         }
     }

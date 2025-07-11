@@ -117,57 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Command_ShutDownAll" xml:space="preserve">
-    <value>xxShutdown All</value>
-    <comment>unconfirmed</comment>
-  </data>
   <data name="Command_Connect" xml:space="preserve">
-    <value>xxC&amp;amp;onnect...</value>
-    <comment>unconfirmed</comment>
+    <value>C&amp;amp;onnect...</value>
   </data>
   <data name="Command_Pause" xml:space="preserve">
-    <value>xx&amp;amp;Pause</value>
-    <comment>unconfirmed</comment>
-  </data>
-  <data name="Command_PauseAll" xml:space="preserve">
-    <value>xxPause All</value>
-    <comment>unconfirmed</comment>
+    <value>&amp;amp;Pause</value>
   </data>
   <data name="Command_Reset" xml:space="preserve">
-    <value>xx&amp;amp;Reset</value>
-    <comment>unconfirmed</comment>
-  </data>
-  <data name="Command_ResetAll" xml:space="preserve">
-    <value>xxReset All</value>
-    <comment>unconfirmed</comment>
+    <value>&amp;amp;Reset</value>
   </data>
   <data name="Command_Resume" xml:space="preserve">
-    <value>xxRes&amp;amp;ume</value>
-    <comment>unconfirmed</comment>
-  </data>
-  <data name="Command_ResumeAll" xml:space="preserve">
-    <value>xxResume All</value>
-    <comment>unconfirmed</comment>
+    <value>Res&amp;amp;ume</value>
   </data>
   <data name="Command_Save" xml:space="preserve">
-    <value>xx&amp;amp;Save</value>
-    <comment>unconfirmed</comment>
-  </data>
-  <data name="Command_SaveAll" xml:space="preserve">
-    <value>xxSave All</value>
-    <comment>unconfirmed</comment>
+    <value>&amp;amp;Save</value>
   </data>
   <data name="Command_ShutDown" xml:space="preserve">
-    <value>xxShut Do&amp;amp;wn...</value>
-    <comment>unconfirmed</comment>
+    <value>Shut Do&amp;amp;wn...</value>
   </data>
   <data name="Command_Start" xml:space="preserve">
-    <value>xx&amp;amp;Start</value>
-    <comment>unconfirmed</comment>
+    <value>&amp;amp;Start</value>
   </data>
   <data name="Command_TurnOff" xml:space="preserve">
-    <value>xx&amp;amp;Turn Off...</value>
-    <comment>unconfirmed</comment>
+    <value>&amp;amp;Turn Off...</value>
   </data>
   <data name="Message_PauseVMFailed" xml:space="preserve">
     <value>xxAn error occurred while attempting to pause the selected virtual machine(s).</value>
@@ -198,43 +170,26 @@
     <comment>unconfirmed</comment>
   </data>
   <data name="State_Critical" xml:space="preserve">
-    <value>StateCritical</value>
-    <comment>unconfirmed</comment>
-  </data>
-  <data name="State_Off" xml:space="preserve">
-    <value>StateOff</value>
+    <value>xxCritical</value>
     <comment>unconfirmed</comment>
   </data>
   <data name="State_Paused" xml:space="preserve">
-    <value>StatePaused</value>
+    <value>xxPaused</value>
     <comment>unconfirmed</comment>
   </data>
   <data name="State_Running" xml:space="preserve">
-    <value>StateRunning</value>
+    <value>xxRunning</value>
     <comment>unconfirmed</comment>
   </data>
   <data name="State_Saved" xml:space="preserve">
-    <value>StateSaved</value>
+    <value>xxSaved</value>
     <comment>unconfirmed</comment>
   </data>
   <data name="Toast_CriticalState" xml:space="preserve">
     <value>Virtual Machine is in a critical state.</value>
     <comment>unconfirmed</comment>
   </data>
-  <data name="Command_StartAll" xml:space="preserve">
-    <value>xxStart All</value>
-    <comment>unconfirmed</comment>
-  </data>
-  <data name="Command_TurnOffAll" xml:space="preserve">
-    <value>xxTurn Off All</value>
-    <comment>unconfirmed</comment>
-  </data>
-  <data name="String_UnknownVirtualMachine" xml:space="preserve">
-    <value>Unknown Virtual Machine</value>
-    <comment>unconfirmed</comment>
-  </data>
   <data name="Menu_HyperVManager" xml:space="preserve">
-    <value>xxHyper-V Manager</value>
-    <comment>unconfirmed</comment>
+    <value>Hyper-V Manager</value>
   </data>
 </root>

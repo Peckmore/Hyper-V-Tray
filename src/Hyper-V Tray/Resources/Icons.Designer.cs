@@ -63,9 +63,19 @@ namespace HyperVTray.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] TrayIcon_Modern {
+        internal static byte[] Icon_Classic {
             get {
-                object obj = ResourceManager.GetObject("TrayIcon_Modern", resourceCulture);
+                object obj = ResourceManager.GetObject("Icon_Classic", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Icon_Modern {
+            get {
+                object obj = ResourceManager.GetObject("Icon_Modern", resourceCulture);
                 return ((byte[])(obj));
             }
         }
