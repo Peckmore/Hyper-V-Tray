@@ -10,7 +10,7 @@
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
 		<PublishSingleFile>true</PublishSingleFile>
 		<Platforms>x64</Platforms>
-		<ApplicationIcon>Resources\HyperV.ico</ApplicationIcon>
+		<ApplicationIcon>..\..\assets\icons\HyperV.ico</ApplicationIcon>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 		<Title>Hyper-V Tray</Title>
@@ -22,27 +22,41 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Content Include="Resources\HyperV.ico" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.3" />
 		<PackageReference Include="NetEx.Legacy.WinForms" Version="0.0.2" />
 		<PackageReference Include="System.Management" Version="9.0.4" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Update="Resources.Designer.cs">
+		<Compile Update="Resources\Icons.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>Icons.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\StringsFallback.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
-			<DependentUpon>Resources.resx</DependentUpon>
+			<DependentUpon>StringsFallback.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Strings.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>Strings.resx</DependentUpon>
 		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Update="Resources.resx">
+		<EmbeddedResource Update="Resources\Icons.resx">
+		  <Generator>ResXFileCodeGenerator</Generator>
+		  <LastGenOutput>Icons.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\StringsFallback.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
-			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+			<LastGenOutput>StringsFallback.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Strings.resx">
+		  <Generator>ResXFileCodeGenerator</Generator>
+		  <LastGenOutput>Strings.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
 	</ItemGroup>
 

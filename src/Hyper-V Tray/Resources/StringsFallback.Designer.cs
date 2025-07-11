@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HyperVTray {
+namespace HyperVTray.Resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace HyperVTray {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class StringsFallback {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal StringsFallback() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace HyperVTray {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HyperVTray.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HyperVTray.Resources.StringsFallback", typeof(StringsFallback).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -79,11 +79,29 @@ namespace HyperVTray {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to xxPause All.
+        /// </summary>
+        internal static string Command_PauseAll {
+            get {
+                return ResourceManager.GetString("Command_PauseAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to xx&amp;amp;Reset.
         /// </summary>
         internal static string Command_Reset {
             get {
                 return ResourceManager.GetString("Command_Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to xxReset All.
+        /// </summary>
+        internal static string Command_ResetAll {
+            get {
+                return ResourceManager.GetString("Command_ResetAll", resourceCulture);
             }
         }
         
@@ -97,11 +115,29 @@ namespace HyperVTray {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to xxResume All.
+        /// </summary>
+        internal static string Command_ResumeAll {
+            get {
+                return ResourceManager.GetString("Command_ResumeAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to xx&amp;amp;Save.
         /// </summary>
         internal static string Command_Save {
             get {
                 return ResourceManager.GetString("Command_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to xxSave All.
+        /// </summary>
+        internal static string Command_SaveAll {
+            get {
+                return ResourceManager.GetString("Command_SaveAll", resourceCulture);
             }
         }
         
@@ -115,11 +151,29 @@ namespace HyperVTray {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to xxShutdown All.
+        /// </summary>
+        internal static string Command_ShutDownAll {
+            get {
+                return ResourceManager.GetString("Command_ShutDownAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to xx&amp;amp;Start.
         /// </summary>
         internal static string Command_Start {
             get {
                 return ResourceManager.GetString("Command_Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to xxStart All.
+        /// </summary>
+        internal static string Command_StartAll {
+            get {
+                return ResourceManager.GetString("Command_StartAll", resourceCulture);
             }
         }
         
@@ -133,12 +187,20 @@ namespace HyperVTray {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to xxTurn Off All.
         /// </summary>
-        internal static byte[] Icon_HyperV {
+        internal static string Command_TurnOffAll {
             get {
-                object obj = ResourceManager.GetObject("Icon_HyperV", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("Command_TurnOffAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to xxHyper-V Manager.
+        /// </summary>
+        internal static string Menu_HyperVManager {
+            get {
+                return ResourceManager.GetString("Menu_HyperVManager", resourceCulture);
             }
         }
         
@@ -247,6 +309,15 @@ namespace HyperVTray {
         internal static string State_Saved {
             get {
                 return ResourceManager.GetString("State_Saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown Virtual Machine.
+        /// </summary>
+        internal static string String_UnknownVirtualMachine {
+            get {
+                return ResourceManager.GetString("String_UnknownVirtualMachine", resourceCulture);
             }
         }
         

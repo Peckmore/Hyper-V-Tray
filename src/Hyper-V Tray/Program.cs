@@ -176,7 +176,7 @@ namespace HyperVTray
             {
                 // Filter out "noisy" states, to just show important ones.
                 var vmState = (VmState)(ushort)virtualMachine["EnabledState"];
-                var vmName = virtualMachine["ElementName"].ToString();
+                var vmName = virtualMachine["ElementName"].ToString() ?? ResourceHelper.String_UnknownVirtualMachine;
                 switch (vmState)
                 {
                     case VmState.Enabled:
@@ -319,7 +319,7 @@ namespace HyperVTray
                 ContextMenu.MenuItems.Add(new MenuItem("-"));
 
                 // Create a root menu item for the VM.
-                var vmItem = new MenuItem("Strings.Menu_AllVirtualMachines");
+                    var vmItem = new MenuItem(ResourceHelper.Menu_AllVirtualMachines);
 
                 var subItems = new List<MenuItem>();
                 var isOff = virtualMachines.Any(vm => IsVmOff((VmState)Convert.ToInt32(vm["EnabledState"])));
@@ -384,7 +384,7 @@ namespace HyperVTray
             if (_vmManagerPath != null)
             {
                 ContextMenu.MenuItems.Add(new MenuItem("-"));
-                var managerItem = new MenuItem("Hyper-V Manager");
+                var managerItem = new MenuItem(ResourceHelper.Menu_HyperVManager);
                 managerItem.Click += (_, _) => OpenHyperVManager();
                 ContextMenu.MenuItems.Add(managerItem);
             }
