@@ -22,7 +22,7 @@ namespace HyperVTray
         internal static int GetTrayIconWidth(IntPtr handle)
         {
             uint dpi = GetDpiForWindow(handle);
-            return GetSystemMetricsForDpi(49, dpi); // SM_CXSMICON
+            return GetSystemMetricsForDpi(49, dpi); // 49 == SM_CXSMICON
         }
 
         #endregion
