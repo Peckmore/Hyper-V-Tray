@@ -12,10 +12,10 @@ namespace HyperVTray.Helpers
     /// </summary>
     /// <remarks>
     /// <para>In order to ease our localisation burden, we try and use resources directly from the Hyper-V Management Tools, which means
-    /// most of our strings are translated for us, and we also have great consistency with the official tools.</para>
+    /// most of our strings are translated for us, and we also have greater consistency with the official tools.</para>
     /// <para>This class acts as a wrapper and will try to get the appropriate resource directly from the tools but, if the resource
     /// can't be loaded, will grab the fallback value from our own embedded resources.</para>
-    /// <para>There are also some resources which have no analog in the official tools, so for those we have our own resources.</para>
+    /// <para>There are also some resources which have no equivalent in the official tools, so for those we have our own resources.</para>
     /// </remarks>
     internal static class ResourceHelper
     {
@@ -79,6 +79,8 @@ namespace HyperVTray.Helpers
 
         private static Icon GetIconResource(byte[] bytes)
         {
+            // Grab an icon resource from our embedded resources, and return it as an `Icon`.
+
             using (var ms = new MemoryStream(bytes))
             {
                 return new Icon(ms);
@@ -86,6 +88,7 @@ namespace HyperVTray.Helpers
         }
         private static string GetStringResource(string resourceName, string fallbackValue)
         {
+            // Attempt to get a string from the Hyper-V resources, and return the fallback value if the resource could not be found.
             return _vmBrowserResourceManager?.GetString(resourceName) ?? fallbackValue;
         }
 
@@ -95,12 +98,14 @@ namespace HyperVTray.Helpers
 
         internal static void Initialize(string hyperVInstallFolder)
         {
-            // Handle the AssemblyResolve event to manually load missing assemblies
+            // Handle the AssemblyResolve event to manually load missing assemblies, which the Hyper-V tools might request.
             AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
             {
+                // Get a filename for the assembly, and combine it with the Hyper-V tools installs path.
                 var assemblyName = new AssemblyName(args.Name);
                 var assemblyPath = Path.Combine(hyperVInstallFolder, $"{assemblyName.Name}.dll");
 
+                // If the file exists on disk, load it.
                 if (File.Exists(assemblyPath))
                 {
                     return Assembly.LoadFile(assemblyPath);
@@ -109,7 +114,10 @@ namespace HyperVTray.Helpers
                 return null; // Return null if the assembly cannot be resolved
             };
 
+            // Attempt to load the main Hyper-V assembly we'll use for resources.
             var vmBrowserAssembly = Assembly.LoadFile(Path.Combine(hyperVInstallFolder, "Microsoft.Virtualization.Client.VMBrowser.dll"));
+
+            // Create a `ResourceManager` instance for the Hyper-V assembly so we can load the resources from it.
             _vmBrowserResourceManager = new ResourceManager(@"Microsoft.Virtualization.Client.VMBrowser.Resources", vmBrowserAssembly);
         }
 
