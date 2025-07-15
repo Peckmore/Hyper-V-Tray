@@ -108,10 +108,18 @@ namespace HyperVTray.Helpers
                 // If the file exists on disk, load it.
                 if (File.Exists(assemblyPath))
                 {
+                    try
+                    {
                     return Assembly.LoadFile(assemblyPath);
                 }
+                    catch
+                    {
+                        // We couldn't load the assembly, so we'll just swallow the exception and return fall through to return null.
+                    }
+                }
 
-                return null; // Return null if the assembly cannot be resolved
+                // Return null if the assembly cannot be resolved.
+                return null; 
             };
 
             // Attempt to load the main Hyper-V assembly we'll use for resources.
