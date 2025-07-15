@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace HyperVTray
+namespace HyperVTray.Interop
 {
-    internal class PInvoke
+    internal static class NativeMethods
     {
         #region Methods
 
@@ -11,7 +11,6 @@ namespace HyperVTray
 
         [DllImport("user32.dll")]
         private static extern uint GetDpiForWindow(IntPtr hwnd);
-
         [DllImport("user32.dll")]
         private static extern int GetSystemMetricsForDpi(int smIndex, uint dpi);
 
@@ -21,7 +20,7 @@ namespace HyperVTray
 
         internal static int GetTrayIconWidth(IntPtr handle)
         {
-            uint dpi = GetDpiForWindow(handle);
+            var dpi = GetDpiForWindow(handle);
             return GetSystemMetricsForDpi(49, dpi); // 49 == SM_CXSMICON
         }
 
