@@ -1,7 +1,8 @@
 ﻿namespace HyperVTray
 {
     /// <summary>
-    /// Represents the possible states a Hyper-V Virtual Machine can be in or requested to go to. This list is taken from both the v1 and v2 WMI providers, and consists of all states that can be set or returned.
+    /// Represents the possible states a Hyper-V Virtual Machine can be in or requested to go to. This list is taken from both the v1 and
+    /// v2 WMI providers, and consists of all states that can be set or returned.
     /// </summary>
     internal enum VmState : ushort
     {

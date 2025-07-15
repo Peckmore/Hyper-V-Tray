@@ -5,6 +5,9 @@ using System.Management;
 
 namespace HyperVTray.Helpers
 {
+    /// <summary>
+    /// Helper class for working with Hyper-V.
+    /// </summary>
     internal static class HyperVHelper
     {
         #region Constants
@@ -34,8 +37,7 @@ namespace HyperVTray.Helpers
             // 6.2 (i.e., Windows 8.1 and Windows Server 2012 R2 onwards).
             var rootWmiPath = Environment.OSVersion.Version > new Version(6, 2) ? "ROOT\\virtualization\\v2" : "ROOT\\virtualization";
 
-            // Create a ManagementScope object and connect to it. This object defines the WMI path we are going to use for our WMI Event
-            // Watcher.
+            // Create a ManagementScope object, which defines the WMI path we are going to use for our WMI Event Watcher.
             WmiManagementScope = new ManagementScope(rootWmiPath);
 
             // Set up our WMI Event Watcher to monitor for changes in state to any Hyper-V virtual machine.
@@ -224,6 +226,8 @@ namespace HyperVTray.Helpers
         }
         public static string VmStateToString(VmState state)
         {
+            // Return the state of a VM as a friendly string.
+
             switch (state)
             {
                 case VmState.Enabled:
