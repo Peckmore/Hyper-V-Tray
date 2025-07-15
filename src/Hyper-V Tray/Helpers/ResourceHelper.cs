@@ -68,7 +68,7 @@ namespace HyperVTray.Helpers
         internal static string State_Paused => GetStringResource("DDDDDD", StringsFallback.State_Paused);
         internal static string State_Running => GetStringResource("rrrrrrr", StringsFallback.State_Running);
         internal static string State_Saved => GetStringResource("dddddddd", StringsFallback.State_Saved);
-        internal static string Toast_CriticalState => StringsFallback.Toast_CriticalState;
+        internal static string Toast_CriticalState => Strings.Toast_CriticalState;
         internal static string String_UnknownVirtualMachine => Strings.String_UnknownVirtualMachine;
 
         #endregion
@@ -110,8 +110,8 @@ namespace HyperVTray.Helpers
                 {
                     try
                     {
-                    return Assembly.LoadFile(assemblyPath);
-                }
+                        return Assembly.LoadFile(assemblyPath);
+                    }
                     catch
                     {
                         // We couldn't load the assembly, so we'll just swallow the exception and return fall through to return null.

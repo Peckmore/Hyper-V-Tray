@@ -77,5 +77,14 @@ namespace HyperVTray.Resources {
                 return ResourceManager.GetString("String_UnknownVirtualMachine", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Virtual Machine is in a critical state..
+        /// </summary>
+        internal static string Toast_CriticalState {
+            get {
+                return ResourceManager.GetString("Toast_CriticalState", resourceCulture);
+            }
+        }
     }
 }

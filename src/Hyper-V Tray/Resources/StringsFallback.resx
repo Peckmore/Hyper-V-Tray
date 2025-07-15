@@ -185,10 +185,6 @@
     <value>xxSaved</value>
     <comment>unconfirmed</comment>
   </data>
-  <data name="Toast_CriticalState" xml:space="preserve">
-    <value>Virtual Machine is in a critical state.</value>
-    <comment>unconfirmed</comment>
-  </data>
   <data name="Menu_HyperVManager" xml:space="preserve">
     <value>Hyper-V Manager</value>
   </data>

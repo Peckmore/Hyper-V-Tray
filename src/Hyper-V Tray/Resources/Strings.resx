@@ -123,4 +123,7 @@
   <data name="String_UnknownVirtualMachine" xml:space="preserve">
     <value>Unknown Virtual Machine</value>
   </data>
+  <data name="Toast_CriticalState" xml:space="preserve">
+    <value>Virtual Machine is in a critical state.</value>
+  </data>
 </root>
