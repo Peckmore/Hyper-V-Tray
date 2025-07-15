@@ -1,4 +1,5 @@
 ﻿using HyperVTray.Helpers;
+using HyperVTray.Interop;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Microsoft.Win32;
 using System;
@@ -48,7 +49,7 @@ namespace HyperVTray
             NotifyIcon = new NotifyIcon();
             NotifyIcon.DoubleClick += NotifyIcon_DoubleClick;
             NotifyIcon.MouseClick += NotifyIcon_MouseClick;
-
+            
             // Create our context menu instance which we'll display whenever the icon is clicked.
             ContextMenu = new ContextMenu();
 
@@ -401,7 +402,7 @@ namespace HyperVTray
         {
             var window = typeof(NotifyIcon).GetField("_window", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(NotifyIcon);
             var windowHandle = (IntPtr)window!.GetType().GetProperty("Handle")!.GetValue(window)!;
-            var iconWidth = PInvoke.GetTrayIconWidth(windowHandle);
+            var iconWidth = NativeMethods.GetTrayIconWidth(windowHandle);
             Debug.Assert(iconWidth > 0, "Icon width is 0");
             var iconSize = new Size(iconWidth, iconWidth);
             NotifyIcon.Icon = new Icon(ResourceHelper.Icon_HyperV, iconSize);
