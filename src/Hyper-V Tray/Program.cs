@@ -136,7 +136,7 @@ namespace HyperVTray
 
             return confirm;
         }
-        private static void ControlMultipleVirtualMachines(VmState state)
+        private static void ControlAllVirtualMachines(VmState state)
         {
             var hasErrors = false;
 
@@ -176,7 +176,7 @@ namespace HyperVTray
         {
             var result = false;
 
-            if (!promptToConfirm || (promptToConfirm && ConfirmAction(state, false)))
+            if (!promptToConfirm || ConfirmAction(state, false))
             {
                 result = state switch
                 {
@@ -339,28 +339,28 @@ namespace HyperVTray
                 // Start
                 if (isAnyOffOrSaved)
                 {
-                    var startAllMenuItem = new MenuItem(ResourceHelper.Command_Start, (_, _) => ControlMultipleVirtualMachines(VmState.Enabled));
+                    var startAllMenuItem = new MenuItem(ResourceHelper.Command_Start, (_, _) => ControlAllVirtualMachines(VmState.Enabled));
                     subItems.Add(startAllMenuItem);
                 }
 
                 // Turn Off
                 if (isAnyRunning || isAnyPaused)
                 {
-                    var stopAllMenuItem = new MenuItem(ResourceHelper.Command_TurnOff, (_, _) => ControlMultipleVirtualMachines(VmState.Disabled));
+                    var stopAllMenuItem = new MenuItem(ResourceHelper.Command_TurnOff, (_, _) => ControlAllVirtualMachines(VmState.Disabled));
                     subItems.Add(stopAllMenuItem);
                 }
 
                 // Shut Down
                 if (isAnyRunning)
                 {
-                    var shutDownAllMenuItem = new MenuItem(ResourceHelper.Command_ShutDown, (_, _) => ControlMultipleVirtualMachines(VmState.ShutDown));
+                    var shutDownAllMenuItem = new MenuItem(ResourceHelper.Command_ShutDown, (_, _) => ControlAllVirtualMachines(VmState.ShutDown));
                     subItems.Add(shutDownAllMenuItem);
                 }
 
                 // Save
                 if (isAnyRunning || isAnyPaused)
                 {
-                    var saveAllMenuItem = new MenuItem(ResourceHelper.Command_Save, (_, _) => ControlMultipleVirtualMachines(VmState.Offline));
+                    var saveAllMenuItem = new MenuItem(ResourceHelper.Command_Save, (_, _) => ControlAllVirtualMachines(VmState.Offline));
                     subItems.Add(saveAllMenuItem);
                 }
 
@@ -372,21 +372,21 @@ namespace HyperVTray
                 // Pause
                 if (isAnyRunning)
                 {
-                    var pauseAllMenuItem = new MenuItem(ResourceHelper.Command_Pause, (_, _) => ControlMultipleVirtualMachines(VmState.Quiesce));
+                    var pauseAllMenuItem = new MenuItem(ResourceHelper.Command_Pause, (_, _) => ControlAllVirtualMachines(VmState.Quiesce));
                     subItems.Add(pauseAllMenuItem);
                 }
 
                 // Resume
                 if (isAnyPaused)
                 {
-                    var resumeAllMenuItem = new MenuItem(ResourceHelper.Command_Resume, (_, _) => ControlMultipleVirtualMachines(VmState.Resuming));
+                    var resumeAllMenuItem = new MenuItem(ResourceHelper.Command_Resume, (_, _) => ControlAllVirtualMachines(VmState.Resuming));
                     subItems.Add(resumeAllMenuItem);
                 }
 
                 // Reset
                 if (isAnyRunning || isAnyPaused)
                 {
-                    var resetAllMenuItem = new MenuItem(ResourceHelper.Command_Reset, (_, _) => ControlMultipleVirtualMachines(VmState.Reset));
+                    var resetAllMenuItem = new MenuItem(ResourceHelper.Command_Reset, (_, _) => ControlAllVirtualMachines(VmState.Reset));
                     subItems.Add(resetAllMenuItem);
                 }
 
