@@ -1,5 +1,4 @@
 ﻿using HyperVTray.Helpers;
-using Microsoft.Toolkit.Uwp.Notifications;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -488,25 +487,13 @@ namespace HyperVTray
         private static void ShowToast(string virtualMachineName, VmState vmState, bool isCritical)
         {
             var status = HyperVHelper.VmStateToString(vmState);
-            if (Environment.OSVersion.Version.Major >= 10)
-            {
-                var toast = new ToastContentBuilder().AddHeader(virtualMachineName, virtualMachineName, new ToastArguments());
 
-                if (isCritical)
-                { 
-                    toast.AddText(ResourceHelper.Toast_CriticalState, AdaptiveTextStyle.Header);
-                }
-
-                //toast.AddText(status).Show();
-            }
-            else
+            if (isCritical)
             {
-                if (isCritical)
-                {
-                    status = $"{ResourceHelper.Toast_CriticalState}\n{status}";
-                }
-                NotifyIcon.ShowBalloonTip(BalloonTipTimeout, virtualMachineName, status, isCritical ? ToolTipIcon.Error : ToolTipIcon.Info);
+                status = $"{ResourceHelper.Toast_CriticalState}\n{status}";
             }
+
+            NotifyIcon.ShowBalloonTip(BalloonTipTimeout, virtualMachineName, status, isCritical ? ToolTipIcon.Error : ToolTipIcon.Info);
         }
 
         #endregion
