@@ -212,12 +212,19 @@ namespace HyperVTray
         }
         private static void ConnectToVirtualMachine(string virtualMachineName)
         {
+            try
+            {
             var processInfo = new ProcessStartInfo
             {
                 FileName = _vmConnectPath!,
                 Arguments = $"localhost \"{virtualMachineName}\"",
             };
             Process.Start(processInfo);
+        }
+            catch
+            {
+                ShowError(ResourceHelper.Message_OpenVMConnectFailed);
+            }
         }
         private static void ExitApplication()
         {
