@@ -403,14 +403,16 @@ namespace HyperVTray
         }
         private static void ShowError(string heading, string text = "")
         {
-            var taskDialogPage = new TaskDialogPage();
-            taskDialogPage.AllowCancel = false;
-            taskDialogPage.AllowMinimize = false;
-            taskDialogPage.Buttons = new() { TaskDialogButton.Close };
-            taskDialogPage.Caption = ApplicationName;
-            taskDialogPage.Heading = heading;
-            taskDialogPage.Icon = TaskDialogIcon.Error;
-            taskDialogPage.Text = text;
+            var taskDialogPage = new TaskDialogPage
+            {
+                AllowCancel = false,
+                AllowMinimize = false,
+                Buttons = new() { TaskDialogButton.Close },
+                Caption = ApplicationName,
+                Heading = heading,
+                Icon = TaskDialogIcon.Error,
+                Text = text
+            };
             TaskDialog.ShowDialog(taskDialogPage);
         }
         private static void ShowToast(string virtualMachineName, VmState vmState, bool isCritical)
