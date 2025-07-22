@@ -17,6 +17,8 @@
 		<Authors>Simon Peckmore</Authors>
 		<IsPublishable>False</IsPublishable>
 		<AssemblyName>hvtray</AssemblyName>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>
