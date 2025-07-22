@@ -177,10 +177,6 @@
   <data name="Message_StartVMFailedMultiple" xml:space="preserve">
     <value>An error occurred while attempting to start the selected virtual machine(s).</value>
   </data>
-  <data name="State_Critical" xml:space="preserve">
-    <value>xxCritical</value>
-    <comment>unconfirmed</comment>
-  </data>
   <data name="State_Paused" xml:space="preserve">
     <value>xxPaused</value>
     <comment>unconfirmed</comment>
@@ -243,5 +239,16 @@
   </data>
   <data name="Message_OpenVMConnectFailed" xml:space="preserve">
     <value>An error occurred while attempting to launch the Virtual Machine Connection application for the selected virtual machine.</value>
+  </data>
+  <data name="State_Critical" xml:space="preserve">
+    <value>{0}-Critical</value>
+  </data>
+  <data name="State_Off" xml:space="preserve">
+    <value>xxOff</value>
+    <comment>unconfirmed</comment>
+  </data>
+  <data name="State_Unknown" xml:space="preserve">
+    <value>Unknown</value>
+    <comment>unconfirmed</comment>
   </data>
 </root>
