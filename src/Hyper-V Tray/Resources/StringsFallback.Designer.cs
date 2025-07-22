@@ -250,7 +250,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxAn error occurred while attempting to pause virtual machine {0}..
+        ///   Looks up a localized string similar to An error occurred while attempting to pause virtual machine {0}..
         /// </summary>
         internal static string Message_PauseVMFailed {
             get {
@@ -259,7 +259,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxAn error occurred while attempting to pause the selected virtual machine(s)..
+        ///   Looks up a localized string similar to An error occurred while attempting to pause the selected virtual machine(s)..
         /// </summary>
         internal static string Message_PauseVMFailedMultiple {
             get {
@@ -277,7 +277,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxAn error occurred while attempting to turn off the selected virtual machine(s)..
+        ///   Looks up a localized string similar to An error occurred while attempting to turn off the selected virtual machine(s)..
         /// </summary>
         internal static string Message_PowerOffVMFailedMultiple {
             get {
@@ -286,7 +286,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxAn error occurred while attempting to reset virtual machine {0}..
+        ///   Looks up a localized string similar to An error occurred while attempting to reset virtual machine {0}..
         /// </summary>
         internal static string Message_ResetVMFailed {
             get {
@@ -295,7 +295,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxAn error occurred while attempting to reset the selected virtual machine(s)..
+        ///   Looks up a localized string similar to An error occurred while attempting to reset the selected virtual machine(s)..
         /// </summary>
         internal static string Message_ResetVMFailedMultiple {
             get {
@@ -304,7 +304,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxAn error occurred while attempting to resume the selected virtual machine(s)..
+        ///   Looks up a localized string similar to An error occurred while attempting to resume the selected virtual machine(s)..
         /// </summary>
         internal static string Message_ResumeVMFailedMultiple {
             get {
@@ -313,7 +313,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxAn error occurred while attempting to save the state of virtual machine {0}..
+        ///   Looks up a localized string similar to An error occurred while attempting to save the state of virtual machine {0}..
         /// </summary>
         internal static string Message_SaveStateVMFailed {
             get {
@@ -322,7 +322,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxAn error occurred while attempting to save the state of the selected virtual machine(s)..
+        ///   Looks up a localized string similar to An error occurred while attempting to save the state of the selected virtual machine(s)..
         /// </summary>
         internal static string Message_SaveStateVMFailedMultiple {
             get {
@@ -331,7 +331,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxAn error occurred while attempting to shut down the virtual machine(s)..
+        ///   Looks up a localized string similar to An error occurred while attempting to shut down the virtual machine(s)..
         /// </summary>
         internal static string Message_ShutDownVMFailedMultiple {
             get {
@@ -340,7 +340,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxAn error occurred while attempting to start virtual machine {0}..
+        ///   Looks up a localized string similar to An error occurred while attempting to start virtual machine {0}..
         /// </summary>
         internal static string Message_StartVMFailed {
             get {
@@ -349,7 +349,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxAn error occurred while attempting to start the selected virtual machine(s)..
+        ///   Looks up a localized string similar to An error occurred while attempting to start the selected virtual machine(s)..
         /// </summary>
         internal static string Message_StartVMFailedMultiple {
             get {

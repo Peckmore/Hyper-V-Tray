@@ -142,52 +142,40 @@
     <value>&amp;Turn Off...</value>
   </data>
   <data name="Message_PauseVMFailed" xml:space="preserve">
-    <value>xxAn error occurred while attempting to pause virtual machine {0}.</value>
-    <comment>unconfirmed</comment>
+    <value>An error occurred while attempting to pause virtual machine {0}.</value>
   </data>
   <data name="Message_PauseVMFailedMultiple" xml:space="preserve">
-    <value>xxAn error occurred while attempting to pause the selected virtual machine(s).</value>
-    <comment>unconfirmed</comment>
+    <value>An error occurred while attempting to pause the selected virtual machine(s).</value>
   </data>
   <data name="Message_PowerOffVMFailed" xml:space="preserve">
     <value>An error occurred while attempting to power off virtual machine {0}.</value>
-    <comment>unconfirmed</comment>
   </data>
   <data name="Message_PowerOffVMFailedMultiple" xml:space="preserve">
-    <value>xxAn error occurred while attempting to turn off the selected virtual machine(s).</value>
-    <comment>unconfirmed</comment>
+    <value>An error occurred while attempting to turn off the selected virtual machine(s).</value>
   </data>
   <data name="Message_ResetVMFailed" xml:space="preserve">
-    <value>xxAn error occurred while attempting to reset virtual machine {0}.</value>
-    <comment>unconfirmed</comment>
+    <value>An error occurred while attempting to reset virtual machine {0}.</value>
   </data>
   <data name="Message_ResetVMFailedMultiple" xml:space="preserve">
-    <value>xxAn error occurred while attempting to reset the selected virtual machine(s).</value>
-    <comment>unconfirmed</comment>
+    <value>An error occurred while attempting to reset the selected virtual machine(s).</value>
   </data>
   <data name="Message_ResumeVMFailedMultiple" xml:space="preserve">
-    <value>xxAn error occurred while attempting to resume the selected virtual machine(s).</value>
-    <comment>unconfirmed</comment>
+    <value>An error occurred while attempting to resume the selected virtual machine(s).</value>
   </data>
   <data name="Message_SaveStateVMFailed" xml:space="preserve">
-    <value>xxAn error occurred while attempting to save the state of virtual machine {0}.</value>
-    <comment>unconfirmed</comment>
+    <value>An error occurred while attempting to save the state of virtual machine {0}.</value>
   </data>
   <data name="Message_SaveStateVMFailedMultiple" xml:space="preserve">
-    <value>xxAn error occurred while attempting to save the state of the selected virtual machine(s).</value>
-    <comment>unconfirmed</comment>
+    <value>An error occurred while attempting to save the state of the selected virtual machine(s).</value>
   </data>
   <data name="Message_ShutDownVMFailedMultiple" xml:space="preserve">
-    <value>xxAn error occurred while attempting to shut down the virtual machine(s).</value>
-    <comment>unconfirmed</comment>
+    <value>An error occurred while attempting to shut down the virtual machine(s).</value>
   </data>
   <data name="Message_StartVMFailed" xml:space="preserve">
-    <value>xxAn error occurred while attempting to start virtual machine {0}.</value>
-    <comment>unconfirmed</comment>
+    <value>An error occurred while attempting to start virtual machine {0}.</value>
   </data>
   <data name="Message_StartVMFailedMultiple" xml:space="preserve">
-    <value>xxAn error occurred while attempting to start the selected virtual machine(s).</value>
-    <comment>unconfirmed</comment>
+    <value>An error occurred while attempting to start the selected virtual machine(s).</value>
   </data>
   <data name="State_Critical" xml:space="preserve">
     <value>xxCritical</value>
