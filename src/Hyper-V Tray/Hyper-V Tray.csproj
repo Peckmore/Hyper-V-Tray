@@ -5,9 +5,7 @@
 		<OutputType>WinExe</OutputType>
 		<RootNamespace>HyperVTray</RootNamespace>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-		<UseWindowsForms>true</UseWindowsForms>
 		<nullable>enable</nullable>
-		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
 		<PublishSingleFile>true</PublishSingleFile>
 		<Platforms>x64</Platforms>
 		<ApplicationIcon>Resources\Icons\HyperV.ico</ApplicationIcon>
