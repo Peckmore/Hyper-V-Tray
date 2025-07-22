@@ -1,5 +1,4 @@
 ﻿using HyperVTray.Helpers;
-using HyperVTray.Interop;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Microsoft.Win32;
 using System;
@@ -8,7 +7,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace HyperVTray
@@ -400,14 +398,8 @@ namespace HyperVTray
         }
         private static void SetTrayIcon()
         {
-            var window = typeof(NotifyIcon).GetField("_window", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(NotifyIcon);
-            var windowHandle = (IntPtr)window!.GetType().GetProperty("Handle")!.GetValue(window)!;
-            var iconWidth = NativeMethods.GetTrayIconWidth(windowHandle);
-            Debug.Assert(iconWidth > 0, "Icon width is 0");
-            var iconSize = new Size(iconWidth, iconWidth);
-            NotifyIcon.Icon = new Icon(ResourceHelper.Icon_HyperV, iconSize);
-
-            Debug.WriteLine($"Icon size: {iconSize.Width}x{iconSize.Height}");
+            NotifyIcon.Icon = new Icon(ResourceHelper.Icon_HyperV, SystemInformation.SmallIconSize);
+            Debug.WriteLine($"Icon size: {SystemInformation.SmallIconSize.Width}x{SystemInformation.SmallIconSize.Height}");
         }
         private static void ShowError(string heading, string text = "")
         {
