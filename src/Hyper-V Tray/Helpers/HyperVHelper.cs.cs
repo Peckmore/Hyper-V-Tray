@@ -193,6 +193,9 @@ namespace HyperVTray.Helpers
         }
         public static bool RequestVmStateChange(string virtualMachineName, VmState state)
         {
+            // Flag to indicate whether the state change was a success.
+            var result = false;
+
             // Get the WMI Management Object for the virtual machine we are interested in.
             var virtualMachine = GetVirtualMachines(virtualMachineName).FirstOrDefault();
 
@@ -202,12 +205,15 @@ namespace HyperVTray.Helpers
                 // Get the parameters for the 'RequestStateChange' method.
                 var inParameters = virtualMachine.GetMethodParameters("RequestStateChange");
 
+                // Get the VM state.
+                var virtualMachineStatus = (VmState)Convert.ToInt32(virtualMachine["EnabledState"]);
+                
                 // Filter out the request as we only support a subset requesting a subset of all states.
-                if (state is VmState.Enabled  // Running
-                          or VmState.Disabled // Stopped
-                          or VmState.Offline  // Saved
-                          or VmState.Quiesce  // Paused
-                          or VmState.Reset)
+                if (virtualMachineStatus != state && state is VmState.Enabled  // Running
+                                                           or VmState.Disabled // Stopped
+                                                           or VmState.Offline  // Saved
+                                                           or VmState.Quiesce  // Paused
+                                                           or VmState.Reset)
                 {
                     // Set the 'RequestedState' parameter to the desired state.
                     inParameters["RequestedState"] = (ushort)state;
@@ -215,19 +221,23 @@ namespace HyperVTray.Helpers
                     // Fire off the request to change the state.
                     var outParameters = virtualMachine.InvokeMethod("RequestStateChange", inParameters, null);
 
-                    // Return the result of the method call.
+                    // Set our result flag to the result of the method call.
                     if (outParameters != null)
                     {
-                        var result = (StateChangeResponse)outParameters["ReturnValue"] is StateChangeResponse.CompletedwithNoError
-                                                                                       or StateChangeResponse.MethodParametersCheckedTransitionStarted;
-
-                        return result;
+                        result = (StateChangeResponse)outParameters["ReturnValue"] is StateChangeResponse.CompletedwithNoError
+                                                                                       or StateChangeResponse.MethodParametersCheckedTransitionStarted
+                                                                                       or StateChangeResponse.InvalidStateForThisOperation;
                     }
+                }
+                else
+                {
+                    // The VM is already in the requested state, so we will set our success flag to true.
+                    result = true;
                 }
             }
 
-            // If we couldn't find a matching virtual machine then return `false`.
-            return false;
+            // Return our result.
+            return result;
         }
         public static string VmStateToString(VmState state)
         {
