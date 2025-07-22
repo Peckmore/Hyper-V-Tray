@@ -118,54 +118,74 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Command_Connect" xml:space="preserve">
-    <value>C&amp;amp;onnect...</value>
+    <value>C&amp;onnect...</value>
   </data>
   <data name="Command_Pause" xml:space="preserve">
-    <value>&amp;amp;Pause</value>
+    <value>&amp;Pause</value>
   </data>
   <data name="Command_Reset" xml:space="preserve">
-    <value>&amp;amp;Reset</value>
+    <value>&amp;Reset</value>
   </data>
   <data name="Command_Resume" xml:space="preserve">
-    <value>Res&amp;amp;ume</value>
+    <value>Res&amp;ume</value>
   </data>
   <data name="Command_Save" xml:space="preserve">
-    <value>&amp;amp;Save</value>
+    <value>&amp;Save</value>
   </data>
   <data name="Command_ShutDown" xml:space="preserve">
-    <value>Shut Do&amp;amp;wn...</value>
+    <value>Shut Do&amp;wn...</value>
   </data>
   <data name="Command_Start" xml:space="preserve">
-    <value>&amp;amp;Start</value>
+    <value>&amp;Start</value>
   </data>
   <data name="Command_TurnOff" xml:space="preserve">
-    <value>&amp;amp;Turn Off...</value>
+    <value>&amp;Turn Off...</value>
   </data>
   <data name="Message_PauseVMFailed" xml:space="preserve">
+    <value>xxAn error occurred while attempting to pause virtual machine {0}.</value>
+    <comment>unconfirmed</comment>
+  </data>
+  <data name="Message_PauseVMFailedMultiple" xml:space="preserve">
     <value>xxAn error occurred while attempting to pause the selected virtual machine(s).</value>
     <comment>unconfirmed</comment>
   </data>
   <data name="Message_PowerOffVMFailed" xml:space="preserve">
+    <value>An error occurred while attempting to power off virtual machine {0}.</value>
+    <comment>unconfirmed</comment>
+  </data>
+  <data name="Message_PowerOffVMFailedMultiple" xml:space="preserve">
     <value>xxAn error occurred while attempting to turn off the selected virtual machine(s).</value>
     <comment>unconfirmed</comment>
   </data>
   <data name="Message_ResetVMFailed" xml:space="preserve">
+    <value>xxAn error occurred while attempting to reset virtual machine {0}.</value>
+    <comment>unconfirmed</comment>
+  </data>
+  <data name="Message_ResetVMFailedMultiple" xml:space="preserve">
     <value>xxAn error occurred while attempting to reset the selected virtual machine(s).</value>
     <comment>unconfirmed</comment>
   </data>
-  <data name="Message_ResumeVMFailed" xml:space="preserve">
+  <data name="Message_ResumeVMFailedMultiple" xml:space="preserve">
     <value>xxAn error occurred while attempting to resume the selected virtual machine(s).</value>
     <comment>unconfirmed</comment>
   </data>
   <data name="Message_SaveStateVMFailed" xml:space="preserve">
+    <value>xxAn error occurred while attempting to save the state of virtual machine {0}.</value>
+    <comment>unconfirmed</comment>
+  </data>
+  <data name="Message_SaveStateVMFailedMultiple" xml:space="preserve">
     <value>xxAn error occurred while attempting to save the state of the selected virtual machine(s).</value>
     <comment>unconfirmed</comment>
   </data>
-  <data name="Message_ShutDownVMFailed" xml:space="preserve">
+  <data name="Message_ShutDownVMFailedMultiple" xml:space="preserve">
     <value>xxAn error occurred while attempting to shut down the virtual machine(s).</value>
     <comment>unconfirmed</comment>
   </data>
   <data name="Message_StartVMFailed" xml:space="preserve">
+    <value>xxAn error occurred while attempting to start virtual machine {0}.</value>
+    <comment>unconfirmed</comment>
+  </data>
+  <data name="Message_StartVMFailedMultiple" xml:space="preserve">
     <value>xxAn error occurred while attempting to start the selected virtual machine(s).</value>
     <comment>unconfirmed</comment>
   </data>
@@ -187,5 +207,50 @@
   </data>
   <data name="Menu_HyperVManager" xml:space="preserve">
     <value>Hyper-V Manager</value>
+  </data>
+  <data name="Button_DontTurnOff" xml:space="preserve">
+    <value>Do&amp;n't Turn Off</value>
+  </data>
+  <data name="Button_TurnOff" xml:space="preserve">
+    <value>&amp;Turn Off</value>
+  </data>
+  <data name="Button_DontReset" xml:space="preserve">
+    <value>Do&amp;n't Reset</value>
+  </data>
+  <data name="Button_Reset" xml:space="preserve">
+    <value>&amp;Reset</value>
+  </data>
+  <data name="Button_ShutDown" xml:space="preserve">
+    <value>&amp;Shut Down</value>
+  </data>
+  <data name="Button_DontShutDown" xml:space="preserve">
+    <value>Do&amp;n't Shut Down</value>
+  </data>
+  <data name="Title_TurnOffMachine" xml:space="preserve">
+    <value>Turn Off Machine</value>
+  </data>
+  <data name="Title_ShutDownMachine" xml:space="preserve">
+    <value>Shut Down Machine</value>
+  </data>
+  <data name="Title_ResetMachine" xml:space="preserve">
+    <value>Reset Machine</value>
+  </data>
+  <data name="Message_ConfirmationTurnOff" xml:space="preserve">
+    <value>Are you sure you want to turn off this virtual machine? This is equivalent to powering off a computer, so data loss is possible.</value>
+  </data>
+  <data name="Message_ConfirmationShutDown" xml:space="preserve">
+    <value>Are you sure you want to shut down the operating system in this virtual machine?</value>
+  </data>
+  <data name="Message_ConfirmationReset" xml:space="preserve">
+    <value>Are you sure you want to reset this virtual machine? If you reset this virtual machine, you will lose all unsaved changes.</value>
+  </data>
+  <data name="Message_ConfirmationShutDownMultiple" xml:space="preserve">
+    <value>Are you sure you want to shut down the operating system in the selected virtual machine(s)?</value>
+  </data>
+  <data name="Message_ConfirmationResetMultiple" xml:space="preserve">
+    <value>Are you sure you want to reset the selected virtual machine(s)?</value>
+  </data>
+  <data name="Message_ConfirmationTurnOffMultiple" xml:space="preserve">
+    <value>Are you sure you want to turn off the selected virtual machine(s)? This is equivalent to powering off a computer, so data loss is possible.</value>
   </data>
 </root>
