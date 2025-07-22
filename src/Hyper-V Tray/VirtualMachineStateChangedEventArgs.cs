@@ -2,7 +2,7 @@
 
 namespace HyperVTray
 {
-    internal class VirtualMachineStateChangedEventArgs : EventArgs
+    internal sealed class VirtualMachineStateChangedEventArgs : EventArgs
     {
         #region Construction
 

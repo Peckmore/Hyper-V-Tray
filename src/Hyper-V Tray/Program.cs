@@ -147,7 +147,7 @@ namespace HyperVTray
                     var virtualMachineName = virtualMachine["ElementName"].ToString();
 
                     // Set the VM state.
-                    if (!ControlVirtualMachine(virtualMachineName, state, false, false))
+                    if (string.IsNullOrWhiteSpace(virtualMachineName) || !ControlVirtualMachine(virtualMachineName, state, false, false))
                     {
                         hasErrors = true;
                     }
@@ -213,13 +213,13 @@ namespace HyperVTray
         {
             try
             {
-            var processInfo = new ProcessStartInfo
-            {
-                FileName = _vmConnectPath!,
-                Arguments = $"localhost \"{virtualMachineName}\"",
-            };
-            Process.Start(processInfo);
-        }
+                var processInfo = new ProcessStartInfo
+                {
+                    FileName = _vmConnectPath!,
+                    Arguments = $"localhost \"{virtualMachineName}\"",
+                };
+                Process.Start(processInfo);
+            }
             catch
             {
                 ShowError(ResourceHelper.Message_OpenVMConnectFailed);
