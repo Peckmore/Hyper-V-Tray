@@ -250,6 +250,15 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while attempting to launch the Virtual Machine Connection application for the selected virtual machine..
+        /// </summary>
+        internal static string Message_OpenVMConnectFailed {
+            get {
+                return ResourceManager.GetString("Message_OpenVMConnectFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while attempting to pause virtual machine {0}..
         /// </summary>
         internal static string Message_PauseVMFailed {

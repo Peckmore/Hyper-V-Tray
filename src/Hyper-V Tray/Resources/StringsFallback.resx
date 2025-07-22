@@ -241,4 +241,7 @@
   <data name="Message_ConfirmationTurnOffMultiple" xml:space="preserve">
     <value>Are you sure you want to turn off the selected virtual machine(s)? This is equivalent to powering off a computer, so data loss is possible.</value>
   </data>
+  <data name="Message_OpenVMConnectFailed" xml:space="preserve">
+    <value>An error occurred while attempting to launch the Virtual Machine Connection application for the selected virtual machine.</value>
+  </data>
 </root>
