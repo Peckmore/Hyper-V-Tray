@@ -33,12 +33,12 @@ namespace HyperVTray.Helpers
             if (Environment.OSVersion.Version < new Version(8, 0))
             {
                 // Before Windows 8, use the classic icon.
-                Icon_HyperV = GetIconResource(Icons.Icon_Classic);
+                Icon_HyperV = GetIconResource("HyperV_Classic");
             }
             else
             {
                 // Windows 8 or later, use the modern icon.
-                Icon_HyperV = GetIconResource(Icons.Icon_Modern);
+                Icon_HyperV = GetIconResource("HyperV");
             }
         }
 
@@ -77,13 +77,13 @@ namespace HyperVTray.Helpers
 
         #region Private Static
 
-        private static Icon GetIconResource(byte[] bytes)
+        private static Icon GetIconResource(string filename)
         {
             // Grab an icon resource from our embedded resources, and return it as an `Icon`.
 
-            using (var ms = new MemoryStream(bytes))
+            using (var resStream = typeof(ResourceHelper).Assembly.GetManifestResourceStream($"HyperVTray.Resources.Icons.{filename}.ico"))
             {
-                return new Icon(ms);
+                return new Icon(resStream!);
             }
         }
         private static string GetStringResource(string resourceName, string fallbackValue)
