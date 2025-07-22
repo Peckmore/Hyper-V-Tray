@@ -61,7 +61,61 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C&amp;amp;onnect....
+        ///   Looks up a localized string similar to Do&amp;n&apos;t Reset.
+        /// </summary>
+        internal static string Button_DontReset {
+            get {
+                return ResourceManager.GetString("Button_DontReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do&amp;n&apos;t Shut Down.
+        /// </summary>
+        internal static string Button_DontShutDown {
+            get {
+                return ResourceManager.GetString("Button_DontShutDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do&amp;n&apos;t Turn Off.
+        /// </summary>
+        internal static string Button_DontTurnOff {
+            get {
+                return ResourceManager.GetString("Button_DontTurnOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Reset.
+        /// </summary>
+        internal static string Button_Reset {
+            get {
+                return ResourceManager.GetString("Button_Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Shut Down.
+        /// </summary>
+        internal static string Button_ShutDown {
+            get {
+                return ResourceManager.GetString("Button_ShutDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Turn Off.
+        /// </summary>
+        internal static string Button_TurnOff {
+            get {
+                return ResourceManager.GetString("Button_TurnOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C&amp;onnect....
         /// </summary>
         internal static string Command_Connect {
             get {
@@ -70,7 +124,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;amp;Pause.
+        ///   Looks up a localized string similar to &amp;Pause.
         /// </summary>
         internal static string Command_Pause {
             get {
@@ -79,7 +133,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;amp;Reset.
+        ///   Looks up a localized string similar to &amp;Reset.
         /// </summary>
         internal static string Command_Reset {
             get {
@@ -88,7 +142,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Res&amp;amp;ume.
+        ///   Looks up a localized string similar to Res&amp;ume.
         /// </summary>
         internal static string Command_Resume {
             get {
@@ -97,7 +151,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;amp;Save.
+        ///   Looks up a localized string similar to &amp;Save.
         /// </summary>
         internal static string Command_Save {
             get {
@@ -106,7 +160,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shut Do&amp;amp;wn....
+        ///   Looks up a localized string similar to Shut Do&amp;wn....
         /// </summary>
         internal static string Command_ShutDown {
             get {
@@ -115,7 +169,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;amp;Start.
+        ///   Looks up a localized string similar to &amp;Start.
         /// </summary>
         internal static string Command_Start {
             get {
@@ -124,7 +178,7 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;amp;Turn Off....
+        ///   Looks up a localized string similar to &amp;Turn Off....
         /// </summary>
         internal static string Command_TurnOff {
             get {
@@ -142,7 +196,61 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxAn error occurred while attempting to pause the selected virtual machine(s)..
+        ///   Looks up a localized string similar to Are you sure you want to reset this virtual machine? If you reset this virtual machine, you will lose all unsaved changes..
+        /// </summary>
+        internal static string Message_ConfirmationReset {
+            get {
+                return ResourceManager.GetString("Message_ConfirmationReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to reset the selected virtual machine(s)?.
+        /// </summary>
+        internal static string Message_ConfirmationResetMultiple {
+            get {
+                return ResourceManager.GetString("Message_ConfirmationResetMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to shut down the operating system in this virtual machine?.
+        /// </summary>
+        internal static string Message_ConfirmationShutDown {
+            get {
+                return ResourceManager.GetString("Message_ConfirmationShutDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to shut down the operating system in the selected virtual machine(s)?.
+        /// </summary>
+        internal static string Message_ConfirmationShutDownMultiple {
+            get {
+                return ResourceManager.GetString("Message_ConfirmationShutDownMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to turn off this virtual machine? This is equivalent to powering off a computer, so data loss is possible..
+        /// </summary>
+        internal static string Message_ConfirmationTurnOff {
+            get {
+                return ResourceManager.GetString("Message_ConfirmationTurnOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to turn off the selected virtual machine(s)? This is equivalent to powering off a computer, so data loss is possible..
+        /// </summary>
+        internal static string Message_ConfirmationTurnOffMultiple {
+            get {
+                return ResourceManager.GetString("Message_ConfirmationTurnOffMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to xxAn error occurred while attempting to pause virtual machine {0}..
         /// </summary>
         internal static string Message_PauseVMFailed {
             get {
@@ -151,7 +259,16 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxAn error occurred while attempting to turn off the selected virtual machine(s)..
+        ///   Looks up a localized string similar to xxAn error occurred while attempting to pause the selected virtual machine(s)..
+        /// </summary>
+        internal static string Message_PauseVMFailedMultiple {
+            get {
+                return ResourceManager.GetString("Message_PauseVMFailedMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while attempting to power off virtual machine {0}..
         /// </summary>
         internal static string Message_PowerOffVMFailed {
             get {
@@ -160,7 +277,16 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxAn error occurred while attempting to reset the selected virtual machine(s)..
+        ///   Looks up a localized string similar to xxAn error occurred while attempting to turn off the selected virtual machine(s)..
+        /// </summary>
+        internal static string Message_PowerOffVMFailedMultiple {
+            get {
+                return ResourceManager.GetString("Message_PowerOffVMFailedMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to xxAn error occurred while attempting to reset virtual machine {0}..
         /// </summary>
         internal static string Message_ResetVMFailed {
             get {
@@ -169,16 +295,25 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxAn error occurred while attempting to resume the selected virtual machine(s)..
+        ///   Looks up a localized string similar to xxAn error occurred while attempting to reset the selected virtual machine(s)..
         /// </summary>
-        internal static string Message_ResumeVMFailed {
+        internal static string Message_ResetVMFailedMultiple {
             get {
-                return ResourceManager.GetString("Message_ResumeVMFailed", resourceCulture);
+                return ResourceManager.GetString("Message_ResetVMFailedMultiple", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxAn error occurred while attempting to save the state of the selected virtual machine(s)..
+        ///   Looks up a localized string similar to xxAn error occurred while attempting to resume the selected virtual machine(s)..
+        /// </summary>
+        internal static string Message_ResumeVMFailedMultiple {
+            get {
+                return ResourceManager.GetString("Message_ResumeVMFailedMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to xxAn error occurred while attempting to save the state of virtual machine {0}..
         /// </summary>
         internal static string Message_SaveStateVMFailed {
             get {
@@ -187,20 +322,38 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to xxAn error occurred while attempting to save the state of the selected virtual machine(s)..
+        /// </summary>
+        internal static string Message_SaveStateVMFailedMultiple {
+            get {
+                return ResourceManager.GetString("Message_SaveStateVMFailedMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to xxAn error occurred while attempting to shut down the virtual machine(s)..
         /// </summary>
-        internal static string Message_ShutDownVMFailed {
+        internal static string Message_ShutDownVMFailedMultiple {
             get {
-                return ResourceManager.GetString("Message_ShutDownVMFailed", resourceCulture);
+                return ResourceManager.GetString("Message_ShutDownVMFailedMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to xxAn error occurred while attempting to start virtual machine {0}..
+        /// </summary>
+        internal static string Message_StartVMFailed {
+            get {
+                return ResourceManager.GetString("Message_StartVMFailed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to xxAn error occurred while attempting to start the selected virtual machine(s)..
         /// </summary>
-        internal static string Message_StartVMFailed {
+        internal static string Message_StartVMFailedMultiple {
             get {
-                return ResourceManager.GetString("Message_StartVMFailed", resourceCulture);
+                return ResourceManager.GetString("Message_StartVMFailedMultiple", resourceCulture);
             }
         }
         
@@ -237,6 +390,33 @@ namespace HyperVTray.Resources {
         internal static string State_Saved {
             get {
                 return ResourceManager.GetString("State_Saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset Machine.
+        /// </summary>
+        internal static string Title_ResetMachine {
+            get {
+                return ResourceManager.GetString("Title_ResetMachine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shut Down Machine.
+        /// </summary>
+        internal static string Title_ShutDownMachine {
+            get {
+                return ResourceManager.GetString("Title_ShutDownMachine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn Off Machine.
+        /// </summary>
+        internal static string Title_TurnOffMachine {
+            get {
+                return ResourceManager.GetString("Title_TurnOffMachine", resourceCulture);
             }
         }
     }
