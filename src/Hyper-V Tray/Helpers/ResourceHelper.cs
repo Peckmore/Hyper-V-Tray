@@ -125,7 +125,7 @@ namespace HyperVTray.Helpers
             if (Directory.Exists(hyperVInstallFolder))
             {
                 // Handle the AssemblyResolve event to manually load missing assemblies, which the Hyper-V tools might request.
-                AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
+                AppDomain.CurrentDomain.AssemblyResolve += (_, args) =>
                 {
                     // Get a filename for the assembly, and combine it with the Hyper-V tools installs path.
                     var assemblyName = new AssemblyName(args.Name);
