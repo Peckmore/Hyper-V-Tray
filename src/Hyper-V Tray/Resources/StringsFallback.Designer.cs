@@ -367,11 +367,20 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to xxCritical.
+        ///   Looks up a localized string similar to {0}-Critical.
         /// </summary>
         internal static string State_Critical {
             get {
                 return ResourceManager.GetString("State_Critical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to xxOff.
+        /// </summary>
+        internal static string State_Off {
+            get {
+                return ResourceManager.GetString("State_Off", resourceCulture);
             }
         }
         
@@ -399,6 +408,15 @@ namespace HyperVTray.Resources {
         internal static string State_Saved {
             get {
                 return ResourceManager.GetString("State_Saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        internal static string State_Unknown {
+            get {
+                return ResourceManager.GetString("State_Unknown", resourceCulture);
             }
         }
         

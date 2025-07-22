@@ -259,7 +259,7 @@ namespace HyperVTray
                     var virtualMachineMenuTitle = virtualMachineName;
                     if (virtualMachineStatus != VmState.Disabled) // Stopped
                     {
-                        virtualMachineMenuTitle += $" [{HyperVHelper.VmStateToString(virtualMachineStatus)}]";
+                        virtualMachineMenuTitle += $" ({HyperVHelper.VmStateToString(virtualMachineStatus)})";
                     }
 
                     // Create VM menu item.

@@ -85,10 +85,12 @@ namespace HyperVTray.Helpers
         internal static string Message_ShutDownVMFailedMultiple => GetStringResource(_vmBrowserResourceManager, "Message_ShutDownVMFailed", StringsFallback.Message_ShutDownVMFailedMultiple);
         internal static string Message_StartVMFailed => GetStringResource(_vmBrowserResourceManager, "Message_StartVMFailed_Format", StringsFallback.Message_StartVMFailed);
         internal static string Message_StartVMFailedMultiple => GetStringResource(_vmBrowserResourceManager, "Message_StartVMFailed", StringsFallback.Message_StartVMFailedMultiple);
-        internal static string State_Critical => GetStringResource(_vmBrowserResourceManager, "cccccccc", StringsFallback.State_Critical);
+        internal static string State_Critical => GetStringResource(_vmBrowserResourceManager, "VMOnFailureStateFormat", StringsFallback.State_Critical);
+        internal static string State_Off => GetStringResource(_vmBrowserResourceManager, "DDDDDD", StringsFallback.State_Off);
         internal static string State_Paused => GetStringResource(_vmBrowserResourceManager, "DDDDDD", StringsFallback.State_Paused);
         internal static string State_Running => GetStringResource(_vmBrowserResourceManager, "rrrrrrr", StringsFallback.State_Running);
         internal static string State_Saved => GetStringResource(_vmBrowserResourceManager, "dddddddd", StringsFallback.State_Saved);
+        internal static string State_Unknown => GetStringResource(_vmBrowserResourceManager, "dddddddd", StringsFallback.State_Unknown);
         internal static string Title_ResetMachine => GetStringResource(_clientResourceManager, "ConfirmationResetTitle", StringsFallback.Title_ResetMachine);
         internal static string Title_ShutDownMachine => GetStringResource(_clientResourceManager, "ConfirmationShutdownTitle", StringsFallback.Title_ShutDownMachine);
         internal static string Title_TurnOffMachine => GetStringResource(_clientResourceManager, "ConfirmationTurnoffTitle", StringsFallback.Title_TurnOffMachine);

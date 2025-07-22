@@ -241,25 +241,25 @@ namespace HyperVTray.Helpers
         }
         public static string VmStateToString(VmState state)
         {
-            // Return the state of a VM as a friendly string.
-
-            switch (state)
+            // Get the state of a VM as a friendly string.
+            var stateString = state switch
             {
-                case VmState.Enabled:
-                    return ResourceHelper.State_Running;
-                case VmState.Offline:
-                case VmState.FastSaved:
-                    return ResourceHelper.State_Saved;
-                case VmState.Quiesce:
-                    return ResourceHelper.State_Paused;
-                default:
-                    if ((int)state >= 32781 && (int)state <= 32792)
-                    {
-                        return ResourceHelper.State_Critical;
-                    }
+                VmState.Disabled => ResourceHelper.State_Off,
+                VmState.Enabled => ResourceHelper.State_Running,
+                VmState.Offline => ResourceHelper.State_Saved,
+                VmState.FastSaved => ResourceHelper.State_Saved,
+                VmState.Quiesce => ResourceHelper.State_Paused,
+                _ => ResourceHelper.State_Unknown
+            };
 
-                    return state.ToString();
+            // If we're critical, format the state string appropriately.
+            if ((int)state >= 32781 && (int)state <= 32792)
+            {
+                stateString = string.Format(ResourceHelper.State_Critical, stateString);
             }
+
+            // Return the state string.
+            return stateString;
         }
 
         #endregion
