@@ -61,11 +61,6 @@ namespace HyperVTray
 
         #region Event Handlers
 
-        private static void ExitMenuItem_Click(object? sender, EventArgs e)
-        {
-            NotifyIcon.Visible = false;
-            Application.Exit();
-        }
         private static void HyperVHelper_VirtualMachineStateChanged(object? sender, VirtualMachineStateChangedEventArgs e)
         {
             ShowToast(e.Name, e.State, e.Critical);
@@ -79,88 +74,143 @@ namespace HyperVTray
             GenerateContextMenu();
             NotifyIcon.ShowContextMenu(ContextMenu);
         }
-        private static void PauseMenuItem_Click(object? sender, EventArgs e)
-        {
-            if (sender is MenuItem menuItem)
-            {
-                if (!HyperVHelper.RequestVmStateChange(menuItem.Parent.Name, VmState.Quiesce))
-                {
-                    ShowError(string.Format(ResourceHelper.Message_PauseVMFailed, menuItem.Parent.Name));
-                }
-            }
-        }
-        private static void ResetMenuItem_Click(object? sender, EventArgs e)
-        {
-            if (sender is MenuItem menuItem)
-            {
-                if (!HyperVHelper.RequestVmStateChange(menuItem.Parent.Name, VmState.Reset))
-                {
-                    ShowError(ResourceHelper.Message_ResetVMFailed, menuItem.Parent.Name);
-                }
-            }
-        }
-        private static void ResumeMenuItem_Click(object? sender, EventArgs e)
-        {
-            if (sender is MenuItem menuItem)
-            {
-                if (!HyperVHelper.RequestVmStateChange(menuItem.Parent.Name, VmState.Enabled))
-                {
-                    ShowError(string.Format(ResourceHelper.Message_ResumeVMFailed, menuItem.Parent.Name));
-                }
-            }
-        }
-        private static void SaveMenuItem_Click(object? sender, EventArgs e)
-        {
-            if (sender is MenuItem menuItem)
-            {
-                if (!HyperVHelper.RequestVmStateChange(menuItem.Parent.Name, VmState.Offline))
-                {
-                    ShowError(string.Format(ResourceHelper.Message_SaveStateVMFailed, menuItem.Parent.Name));
-                }
-            }
-        }
-        private static void ShutDownMenuItem_Click(object? sender, EventArgs e)
-        {
-            if (sender is MenuItem menuItem)
-            {
-                if (!HyperVHelper.RequestVmShutdown(menuItem.Parent.Name))
-                {
-                    ShowError(string.Format(ResourceHelper.Message_ShutDownVMFailed, menuItem.Parent.Name));
-                }
-            }
-        }
-        private static void StartMenuItem_Click(object? sender, EventArgs e)
-        {
-            if (sender is MenuItem menuItem)
-            {
-                if (!HyperVHelper.RequestVmStateChange(menuItem.Parent.Name, VmState.Enabled))
-                {
-                    ShowError(string.Format(ResourceHelper.Message_StartVMFailed, menuItem.Parent.Name));
-                }
-            }
-        }
         private static void SystemEvents_DisplaySettingsChanged(object? sender, EventArgs e)
         {
             Debug.WriteLine("Display settings change detected.");
 
             SetTrayIcon();
         }
-        private static void TurnOffMenuItem_Click(object? sender, EventArgs e)
-        {
-            if (sender is MenuItem menuItem)
-            {
-                if (!HyperVHelper.RequestVmStateChange(menuItem.Parent.Name, VmState.Disabled))
-                {
-                    ShowError(string.Format(ResourceHelper.Message_PowerOffVMFailed, menuItem.Parent.Name));
-                }
-            }
-        }
 
         #endregion
-            
+
         #region Private Static
 
-        private static void ConnectToVm(string virtualMachineName)
+        private static bool ConfirmAction(VmState state, bool multiple)
+        {
+            var confirm = true;
+
+            if (state is VmState.Disabled or VmState.Reset or VmState.ShutDown)
+            {
+                string? button1Text = null;
+                string? button2Text = null;
+                string? heading = null;
+                string? message = null;
+
+                switch (state)
+                {
+                    case VmState.Disabled:
+                        button1Text = ResourceHelper.Button_TurnOff;
+                        button2Text = ResourceHelper.Button_DontTurnOff;
+                        heading = ResourceHelper.Title_TurnOffMachine;
+                        message = multiple ? ResourceHelper.Message_ConfirmationTurnOffMultiple : ResourceHelper.Message_ConfirmationTurnOff;
+                        break;
+                    case VmState.Reset:
+                        button1Text = ResourceHelper.Button_Reset;
+                        button2Text = ResourceHelper.Button_DontReset;
+                        heading = ResourceHelper.Title_ResetMachine;
+                        message = multiple ? ResourceHelper.Message_ConfirmationResetMultiple : ResourceHelper.Message_ConfirmationReset;
+                        break;
+                    case VmState.ShutDown:
+                        button1Text = ResourceHelper.Button_ShutDown;
+                        button2Text = ResourceHelper.Button_DontShutDown;
+                        heading = ResourceHelper.Title_ShutDownMachine;
+                        message = multiple ? ResourceHelper.Message_ConfirmationShutDownMultiple : ResourceHelper.Message_ConfirmationShutDown;
+                        break;
+                }
+
+                var button1 = new TaskDialogButton(button1Text);
+                var button2 = new TaskDialogButton(button2Text);
+
+                var taskDialogPage = new TaskDialogPage
+                {
+                    AllowCancel = true,
+                    AllowMinimize = false,
+                    Buttons = new() { button1, button2 },
+                    Caption = heading,
+                    DefaultButton = button2,
+                    Heading = message,
+                    Icon = TaskDialogIcon.Warning
+                };
+                confirm = TaskDialog.ShowDialog(taskDialogPage) == button1;
+            }
+
+            return confirm;
+        }
+        private static void ControlMultipleVirtualMachines(VmState state)
+        {
+            var hasErrors = false;
+
+            if (ConfirmAction(state, true))
+            {
+                foreach (var virtualMachine in HyperVHelper.GetVirtualMachines())
+                {
+                    // Get the VM name.
+                    var virtualMachineName = virtualMachine["ElementName"].ToString();
+
+                    // Set the VM state.
+                    if (!ControlVirtualMachine(virtualMachineName, state, false, false))
+                    {
+                        hasErrors = true;
+                    }
+                }
+            }
+
+            if (hasErrors)
+            {
+                var errorMessage = state switch
+                {
+                    VmState.Disabled => ResourceHelper.Message_PowerOffVMFailedMultiple,
+                    VmState.Enabled => ResourceHelper.Message_StartVMFailedMultiple,
+                    VmState.Offline => ResourceHelper.Message_SaveStateVMFailedMultiple,
+                    VmState.Quiesce => ResourceHelper.Message_PauseVMFailedMultiple,
+                    VmState.Reset => ResourceHelper.Message_ResetVMFailedMultiple,
+                    VmState.Resuming => ResourceHelper.Message_ResumeVMFailedMultiple,
+                    VmState.ShutDown => ResourceHelper.Message_ShutDownVMFailedMultiple,
+                    _ => string.Empty
+                };
+
+                ShowError(errorMessage);
+            }
+        }
+        private static bool ControlVirtualMachine(string virtualMachineName, VmState state, bool showErrorMessage = true, bool promptToConfirm = true)
+        {
+            var result = false;
+
+            if (!promptToConfirm || (promptToConfirm && ConfirmAction(state, false)))
+            {
+                result = state switch
+                {
+                    VmState.Disabled or
+                    VmState.Enabled or
+                    VmState.Offline or
+                    VmState.Quiesce or
+                    VmState.Reset => HyperVHelper.RequestVmStateChange(virtualMachineName, state),
+                    VmState.Resuming => HyperVHelper.RequestVmStateChange(virtualMachineName, VmState.Enabled),
+                    VmState.ShutDown => HyperVHelper.RequestVmShutdown(virtualMachineName),
+                    _ => false
+                };
+
+                if (!result && showErrorMessage)
+                {
+                    var errorMessage = state switch
+                    {
+                        VmState.Disabled => ResourceHelper.Message_PowerOffVMFailed,
+                        VmState.Enabled => ResourceHelper.Message_StartVMFailed,
+                        VmState.Offline => ResourceHelper.Message_SaveStateVMFailed,
+                        VmState.Quiesce => ResourceHelper.Message_PauseVMFailed,
+                        VmState.Reset => ResourceHelper.Message_ResetVMFailed,
+                        VmState.Resuming => ResourceHelper.Message_ResumeVMFailed,
+                        VmState.ShutDown => ResourceHelper.Message_ShutDownVMFailed,
+                        _ => string.Empty
+                    };
+
+                    ShowError(string.Format(errorMessage, $"'{virtualMachineName}'"));
+                }
+            }
+
+            return result;
+        }
+        private static void ConnectToVirtualMachine(string virtualMachineName)
         {
             var processInfo = new ProcessStartInfo
             {
@@ -169,13 +219,24 @@ namespace HyperVTray
             };
             Process.Start(processInfo);
         }
+        private static void ExitApplication()
+        {
+            NotifyIcon.Visible = false;
+            Application.Exit();
+        }
         private static void GenerateContextMenu()
         {
             // Clear the context menu.
             ContextMenu.MenuItems.Clear();
 
             // Get all VMs.
-            var virtualMachines = HyperVHelper.GetVirtualMachines().ToList();
+            var virtualMachines = HyperVHelper.GetVirtualMachines();
+
+            // We'll set some flags as we iterate through the virtual machines to determine if any are in certain states, then use these
+            // flags to build our sub-menu for commands to run against all relevant virtual machines.
+            var isAnyOffOrSaved = false;
+            var isAnyPaused = false;
+            var isAnyRunning = false;
 
             // Create a menu entry for each VM.
             foreach (var virtualMachine in virtualMachines)
@@ -197,66 +258,67 @@ namespace HyperVTray
 
                     // Create VM menu item.
                     var virtualMachineMenu = new MenuItem(virtualMachineMenuTitle) { Name = virtualMachineName };
-                    var canResume = HyperVHelper.IsVmPaused(virtualMachineStatus); // Paused
-                    var canStart = HyperVHelper.IsVmOff(virtualMachineStatus) || HyperVHelper.IsVmSaved(virtualMachineStatus); // Stopped or Saved
+                    var isPaused = HyperVHelper.IsVmPaused(virtualMachineStatus);
+                    var isOffOrSaved = HyperVHelper.IsVmOff(virtualMachineStatus) || HyperVHelper.IsVmSaved(virtualMachineStatus);
 
                     // Now generate control menu items for VM.
 
                     // Connect
                     if (_vmConnectPath != null)
                     {
-                        var connectMenuItem = new MenuItem(ResourceHelper.Command_Connect);
-                        connectMenuItem.Click += (_, _) => ConnectToVm(virtualMachineName);
+                        var connectMenuItem = new MenuItem(ResourceHelper.Command_Connect, (_, _) => ConnectToVirtualMachine(virtualMachineName));
                         virtualMachineMenu.MenuItems.Add(connectMenuItem);
                         virtualMachineMenu.MenuItems.Add(new MenuItem("-"));
                     }
 
-                    if (canStart)
+                    if (isOffOrSaved)
                     {
+                        // We have at least one machine that is powered off, so we can set this flag to true.
+                        isAnyOffOrSaved = true;
+
                         // Start
-                        var startMenuItem = new MenuItem(ResourceHelper.Command_Start);
-                        startMenuItem.Click += StartMenuItem_Click;
+                        var startMenuItem = new MenuItem(ResourceHelper.Command_Start, (_, _) => ControlVirtualMachine(virtualMachineName, VmState.Enabled));
                         virtualMachineMenu.MenuItems.Add(startMenuItem);
                     }
                     else
                     {
                         // Turn Off
-                        var stopMenuItem = new MenuItem(ResourceHelper.Command_TurnOff);
-                        stopMenuItem.Click += TurnOffMenuItem_Click;
+                        var stopMenuItem = new MenuItem(ResourceHelper.Command_TurnOff, (_, _) => ControlVirtualMachine(virtualMachineName, VmState.Disabled));
                         virtualMachineMenu.MenuItems.Add(stopMenuItem);
 
                         // Shut Down
-                        if (!canResume)
+                        if (!isPaused)
                         {
-                            var shutMenuDownItem = new MenuItem(ResourceHelper.Command_ShutDown);
-                            shutMenuDownItem.Click += ShutDownMenuItem_Click;
+                            // We have at least one machine that is running, so we can set this flag to true.
+                            isAnyRunning = true;
+
+                            var shutMenuDownItem = new MenuItem(ResourceHelper.Command_ShutDown, (_, _) => ControlVirtualMachine(virtualMachineName, VmState.ShutDown));
                             virtualMachineMenu.MenuItems.Add(shutMenuDownItem);
                         }
 
                         // Save
-                        var saveMenuStateItem = new MenuItem(ResourceHelper.Command_Save);
-                        saveMenuStateItem.Click += SaveMenuItem_Click;
+                        var saveMenuStateItem = new MenuItem(ResourceHelper.Command_Save, (_, _) => ControlVirtualMachine(virtualMachineName, VmState.Offline));
                         virtualMachineMenu.MenuItems.Add(saveMenuStateItem);
 
                         virtualMachineMenu.MenuItems.Add(new MenuItem("-"));
-                        if (canResume)
+                        if (isPaused)
                         {
+                            // We have at least one machine that is paused, so we can set this flag to true.
+                            isAnyPaused = true;
+
                             // Resume
-                            var resumeMenuItem = new MenuItem(ResourceHelper.Command_Resume);
-                            resumeMenuItem.Click += ResumeMenuItem_Click;
+                            var resumeMenuItem = new MenuItem(ResourceHelper.Command_Resume, (_, _) => ControlVirtualMachine(virtualMachineName, VmState.Resuming));
                             virtualMachineMenu.MenuItems.Add(resumeMenuItem);
                         }
                         else
                         {
                             // Pause
-                            var pauseMenuItem = new MenuItem(ResourceHelper.Command_Pause);
-                            pauseMenuItem.Click += PauseMenuItem_Click;
+                            var pauseMenuItem = new MenuItem(ResourceHelper.Command_Pause, (_, _) => ControlVirtualMachine(virtualMachineName, VmState.Quiesce));
                             virtualMachineMenu.MenuItems.Add(pauseMenuItem);
                         }
 
                         // Reset
-                        var resetMenuItem = new MenuItem(ResourceHelper.Command_Reset);
-                        resetMenuItem.Click += ResetMenuItem_Click;
+                        var resetMenuItem = new MenuItem(ResourceHelper.Command_Reset, (_, _) => ControlVirtualMachine(virtualMachineName, VmState.Reset));
                         virtualMachineMenu.MenuItems.Add(resetMenuItem);
                     }
 
@@ -273,56 +335,59 @@ namespace HyperVTray
                 var vmItem = new MenuItem(ResourceHelper.Menu_AllVirtualMachines);
 
                 var subItems = new List<MenuItem>();
-                var isOff = virtualMachines.Any(vm => HyperVHelper.IsVmOff((VmState)Convert.ToInt32(vm["EnabledState"])));
-                var isPaused = virtualMachines.Any(vm => HyperVHelper.IsVmPaused((VmState)Convert.ToInt32(vm["EnabledState"])));
-                var isRunning = virtualMachines.Any(vm => HyperVHelper.IsVmRunning((VmState)Convert.ToInt32(vm["EnabledState"])));
-                var isSaved = virtualMachines.Any(vm => HyperVHelper.IsVmSaved((VmState)Convert.ToInt32(vm["EnabledState"])));
 
                 // Start
-                if (isOff || isSaved)
+                if (isAnyOffOrSaved)
                 {
-                    subItems.Add(new MenuItem(ResourceHelper.Command_Start)); //MenuItemStartAll_Click));
+                    var startAllMenuItem = new MenuItem(ResourceHelper.Command_Start, (_, _) => ControlMultipleVirtualMachines(VmState.Enabled));
+                    subItems.Add(startAllMenuItem);
                 }
 
                 // Turn Off
-                if (isRunning || isPaused)
+                if (isAnyRunning || isAnyPaused)
                 {
-                    subItems.Add(new MenuItem(ResourceHelper.Command_TurnOff)); //MenuItemStopAll_Click));
+                    var stopAllMenuItem = new MenuItem(ResourceHelper.Command_TurnOff, (_, _) => ControlMultipleVirtualMachines(VmState.Disabled));
+                    subItems.Add(stopAllMenuItem);
                 }
 
                 // Shut Down
-                if (isRunning)
+                if (isAnyRunning)
                 {
-                    subItems.Add(new MenuItem(ResourceHelper.Command_ShutDown)); //MenuItemShutdownAll_Click));
+                    var shutDownAllMenuItem = new MenuItem(ResourceHelper.Command_ShutDown, (_, _) => ControlMultipleVirtualMachines(VmState.ShutDown));
+                    subItems.Add(shutDownAllMenuItem);
                 }
 
                 // Save
-                if (isRunning || isPaused)
+                if (isAnyRunning || isAnyPaused)
                 {
-                    subItems.Add(new MenuItem(ResourceHelper.Command_Save)); //MenuItemSaveAll_Click));
+                    var saveAllMenuItem = new MenuItem(ResourceHelper.Command_Save, (_, _) => ControlMultipleVirtualMachines(VmState.Offline));
+                    subItems.Add(saveAllMenuItem);
                 }
 
-                if (subItems.Any() && isRunning || isPaused)
+                if (subItems.Any() && isAnyRunning || isAnyPaused)
                 {
                     subItems.Add(new MenuItem("-"));
                 }
 
-                // Resume
-                if (isPaused)
+                // Pause
+                if (isAnyRunning)
                 {
-                    subItems.Add(new MenuItem(ResourceHelper.Command_Resume)); //MenuItemResumeAll_Click));
+                    var pauseAllMenuItem = new MenuItem(ResourceHelper.Command_Pause, (_, _) => ControlMultipleVirtualMachines(VmState.Quiesce));
+                    subItems.Add(pauseAllMenuItem);
                 }
 
-                // Pause
-                if (isRunning)
+                // Resume
+                if (isAnyPaused)
                 {
-                    subItems.Add(new MenuItem(ResourceHelper.Command_Pause)); //MenuItemPauseAll_Click));
+                    var resumeAllMenuItem = new MenuItem(ResourceHelper.Command_Resume, (_, _) => ControlMultipleVirtualMachines(VmState.Resuming));
+                    subItems.Add(resumeAllMenuItem);
                 }
 
                 // Reset
-                if (isRunning || isPaused)
+                if (isAnyRunning || isAnyPaused)
                 {
-                    subItems.Add(new MenuItem(ResourceHelper.Command_Reset)); //MenuItemResetAll_Click));
+                    var resetAllMenuItem = new MenuItem(ResourceHelper.Command_Reset, (_, _) => ControlMultipleVirtualMachines(VmState.Reset));
+                    subItems.Add(resetAllMenuItem);
                 }
 
                 vmItem.MenuItems.AddRange(subItems.ToArray());
@@ -343,7 +408,7 @@ namespace HyperVTray
             // Add `Exit` menu item.
             ContextMenu.MenuItems.Add(new MenuItem("-"));
             var exitItem = new MenuItem("Exit");
-            exitItem.Click += ExitMenuItem_Click;
+            exitItem.Click += (_, _) => ExitApplication();
             ContextMenu.MenuItems.Add(exitItem);
         }
         [STAThread]
@@ -353,33 +418,31 @@ namespace HyperVTray
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            // Show our tray icon.
+            NotifyIcon.Visible = true;
+            SetTrayIcon();
+
             // Detect Hyper-V components.
             _hyperVInstallFolder = @$"{Environment.GetEnvironmentVariable("ProgramFiles")}\Hyper-V\";
-            if (!Directory.Exists(_hyperVInstallFolder))
+            if (Directory.Exists(_hyperVInstallFolder))
             {
-                ShowError("Hyper-V Tools not installed.");
-                Application.Exit();
-                return;
-            }
-            _vmConnectPath = $@"{Environment.GetEnvironmentVariable("SYSTEMROOT")}\System32\vmconnect.exe";
-            if (!File.Exists(_vmConnectPath))
-            {
-                _vmConnectPath = null;
-            }
-            _vmManagerPath = $@"{Environment.GetEnvironmentVariable("SYSTEMROOT")}\System32\virtmgmt.msc";
-            if (!File.Exists(_vmManagerPath))
-            {
-                _vmManagerPath = null;
+                _vmConnectPath = $@"{Environment.GetEnvironmentVariable("SYSTEMROOT")}\System32\vmconnect.exe";
+                if (!File.Exists(_vmConnectPath))
+                {
+                    _vmConnectPath = null;
+                }
+
+                _vmManagerPath = $@"{Environment.GetEnvironmentVariable("SYSTEMROOT")}\System32\virtmgmt.msc";
+                if (!File.Exists(_vmManagerPath))
+                {
+                    _vmManagerPath = null;
+                }
             }
 
             // Initialize our helpers.
             HyperVHelper.Initialize();
             HyperVHelper.VirtualMachineStateChanged += HyperVHelper_VirtualMachineStateChanged;
             ResourceHelper.Initialize(_hyperVInstallFolder);
-
-            // Show our tray icon.
-            NotifyIcon.Visible = true;
-            SetTrayIcon();
 
             // Run the application.
             Application.Run();
@@ -427,8 +490,7 @@ namespace HyperVTray
                     toast.AddText(ResourceHelper.Toast_CriticalState, AdaptiveTextStyle.Header);
                 }
 
-                toast.AddText(status)
-                     .Show();
+                //toast.AddText(status).Show();
             }
             else
             {
