@@ -88,7 +88,7 @@ namespace HyperVTray.Helpers
 
         #region Public Static
 
-        public static IEnumerable<ManagementObject> GetVirtualMachines(string? name = null)
+        public static IList<ManagementObject> GetVirtualMachines(string? name = null)
         {
             // Create our WMI query string to get one virtual machine, or all virtual machines, from the list of machines configured
             // on this system. If the 'name' parameter is null then we get all virtual machines, otherwise we look for a machine with
@@ -106,7 +106,10 @@ namespace HyperVTray.Helpers
             var vmSearcher = new ManagementObjectSearcher(WmiManagementScope, queryObj);
 
             // Run the search, and cast the results to a list of ManagementObject.
-            return vmSearcher.Get().Cast<ManagementObject>().ToList();
+            var list = vmSearcher.Get().Cast<ManagementObject>().OrderBy(vm => vm["ElementName"]).ToList();
+
+            // Return the sorted list.
+            return list;
         }
         public static void Initialize()
         {
