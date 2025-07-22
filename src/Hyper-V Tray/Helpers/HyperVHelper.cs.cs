@@ -218,8 +218,10 @@ namespace HyperVTray.Helpers
                     // Return the result of the method call.
                     if (outParameters != null)
                     {
-                        return (StateChangeResponse)outParameters["ReturnValue"] is StateChangeResponse.CompletedwithNoError
-                                                                                 or StateChangeResponse.MethodParametersCheckedTransitionStarted;
+                        var result = (StateChangeResponse)outParameters["ReturnValue"] is StateChangeResponse.CompletedwithNoError
+                                                                                       or StateChangeResponse.MethodParametersCheckedTransitionStarted;
+
+                        return result;
                     }
                 }
             }
