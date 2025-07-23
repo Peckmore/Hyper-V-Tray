@@ -1,24 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+
+		<!-- Project Settings -->
 		<TargetFramework>net9.0-windows7.0</TargetFramework>
 		<OutputType>WinExe</OutputType>
 		<RootNamespace>HyperVTray</RootNamespace>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-		<nullable>enable</nullable>
-		<PublishSingleFile>true</PublishSingleFile>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<DebugType>embedded</DebugType>
 		<Platforms>x64</Platforms>
 		<ApplicationIcon>Resources\Icons\HyperV.ico</ApplicationIcon>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+
+		<!-- Build Settings -->
+		<OutputPath>$(BaseOutputPath)</OutputPath>
+		<AssemblyName>hvtray</AssemblyName>
+		<PublishSingleFile>true</PublishSingleFile>
+		<AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+
+		<!-- Metadata -->
+		<Version>1.0.0</Version>
+		<Description>A managed implementation of the standard Windows credential and progress dialogs, for WinForms.</Description>
+		<Author>Simon Peckmore</Author>
+		<Copyright>Copyright © Simon Peckmore 2025</Copyright>
 		<Title>Hyper-V Tray</Title>
 		<AssemblyTitle>Hyper-V Tray</AssemblyTitle>
 		<Product>Hyper-V Tray</Product>
-		<Authors>Simon Peckmore</Authors>
-		<IsPublishable>False</IsPublishable>
-		<AssemblyName>hvtray</AssemblyName>
-		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -2,13 +2,20 @@
 
 namespace HyperVTray
 {
+    /// <summary>
+    /// EventArgs for when a virtual machine changes state.
+    /// </summary>
     internal sealed class VirtualMachineStateChangedEventArgs : EventArgs
     {
         #region Construction
 
-        public VirtualMachineStateChangedEventArgs(string name, VmState state, bool critical)
+        /// <summary>
+        /// Creates a new instance of <see cref="VirtualMachineStateChangedEventArgs"/>.
+        /// </summary>
+        /// <param name="name">The name of the virtual machine.</param>
+        /// <param name="state">The state of the virtual machine.</param>
+        public VirtualMachineStateChangedEventArgs(string name, VirtualMachineState state)
         {
-            Critical = critical;
             Name = name;
             State = state;
         }
@@ -17,9 +24,14 @@ namespace HyperVTray
 
         #region Properties
 
-        public bool Critical { get; }
+        /// <summary>
+        /// The name of the virtual machine.
+        /// </summary>
         public string Name { get; }
-        public VmState State { get; }
+        /// <summary>
+        /// The state of the virtual machine.
+        /// </summary>
+        public VirtualMachineState State { get; }
 
         #endregion
     }
