@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace HyperVTray
@@ -491,41 +492,51 @@ namespace HyperVTray
         [STAThread]
         private static void Main()
         {
-            // Application setup.
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            // Show our tray icon.
-            NotifyIcon.Visible = true;
-            SetTrayIcon();
-
-            // Check whether the Hyper-V Tools folder exists and, if so, grab or load the required resources.
-            _hyperVInstallFolder = @$"{Environment.GetEnvironmentVariable("ProgramFiles")}\Hyper-V\";
-            if (Directory.Exists(_hyperVInstallFolder))
+            // We want this app to be single instance, so we'll use a mutex to enforce this.
+            using (new Mutex(true, ApplicationName, out var firstInstance))
             {
-                // Set the path to "vmconnect.exe" (if it exists) so we can launch the VM connection application.
-                _vmConnectPath = $@"{Environment.GetEnvironmentVariable("SYSTEMROOT")}\System32\vmconnect.exe";
-                if (!File.Exists(_vmConnectPath))
+                // Check whether this is the first instance, or if an instance already exists.
+                if (firstInstance)
                 {
-                    _vmConnectPath = null;
-                }
+                    // This is the first instance, so we'll run the app as normal.
 
-                // Set the path to "virtmgmt.msc" (if it exists) so we can launch Hyper-V manager.
-                _vmManagerPath = $@"{Environment.GetEnvironmentVariable("SYSTEMROOT")}\System32\virtmgmt.msc";
-                if (!File.Exists(_vmManagerPath))
-                {
-                    _vmManagerPath = null;
-                }
+                    // Application setup.
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
 
-                // Tell ResourceHelper to attempt to load Hyper-V Tools resources.
-                ResourceHelper.LoadExternalResources(_hyperVInstallFolder);
+                    // Show our tray icon.
+                    NotifyIcon.Visible = true;
+                    SetTrayIcon();
+
+                    // Check whether the Hyper-V Tools folder exists and, if so, grab or load the required resources.
+                    _hyperVInstallFolder = @$"{Environment.GetEnvironmentVariable("ProgramFiles")}\Hyper-V\";
+                    if (Directory.Exists(_hyperVInstallFolder))
+                    {
+                        // Set the path to "vmconnect.exe" (if it exists) so we can launch the VM connection application.
+                        _vmConnectPath = $@"{Environment.GetEnvironmentVariable("SYSTEMROOT")}\System32\vmconnect.exe";
+                        if (!File.Exists(_vmConnectPath))
+                        {
+                            _vmConnectPath = null;
+                        }
+
+                        // Set the path to "virtmgmt.msc" (if it exists) so we can launch Hyper-V manager.
+                        _vmManagerPath = $@"{Environment.GetEnvironmentVariable("SYSTEMROOT")}\System32\virtmgmt.msc";
+                        if (!File.Exists(_vmManagerPath))
+                        {
+                            _vmManagerPath = null;
+                        }
+
+                        // Tell ResourceHelper to attempt to load Hyper-V Tools resources.
+                        ResourceHelper.LoadExternalResources(_hyperVInstallFolder);
+                    }
+
+                    // Initialize and hook our helpers as required.
+                    HyperVHelper.VirtualMachineStateChanged += HyperVHelper_VirtualMachineStateChanged;
+
+                    // Run the application.
+                    Application.Run();
+                }
             }
-
-            // Initialize and hook our helpers as required.
-            HyperVHelper.VirtualMachineStateChanged += HyperVHelper_VirtualMachineStateChanged;
-
-            // Run the application.
-            Application.Run();
         }
         private static void OpenHyperVManager()
         {
