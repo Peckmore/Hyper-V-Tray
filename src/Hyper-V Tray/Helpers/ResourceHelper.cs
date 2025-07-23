@@ -47,55 +47,55 @@ namespace HyperVTray.Helpers
 
         #region Properties
 
-        internal static string Button_DontReset => GetStringResource(_clientResourceManager, "ConfirmationResetButton2", StringsFallback.Button_DontReset);
-        internal static string Button_DontShutDown => GetStringResource(_clientResourceManager, "ConfirmationShutdownButton2", StringsFallback.Button_DontShutDown);
-        internal static string Button_DontTurnOff => GetStringResource(_clientResourceManager, "ConfirmationTurnoffButton2", StringsFallback.Button_DontTurnOff);
-        internal static string Button_Reset => GetStringResource(_clientResourceManager, "ConfirmationResetButton1", StringsFallback.Button_Reset);
-        internal static string Button_ShutDown => GetStringResource(_clientResourceManager, "ConfirmationShutdownButton1", StringsFallback.Button_ShutDown);
-        internal static string Button_TurnOff => GetStringResource(_clientResourceManager, "ConfirmationTurnoffButton1", StringsFallback.Button_TurnOff);
-        internal static string Command_Connect => GetStringResource(_vmBrowserResourceManager, "VMOpen_Name", StringsFallback.Command_Connect);
-        internal static string Command_HyperVManager => GetStringResource(_vmBrowserResourceManager, "SnapInNode_DisplayName", StringsFallback.Menu_HyperVManager);
-        internal static string Command_Pause => GetStringResource(_vmBrowserResourceManager, "VMPause_Name", StringsFallback.Command_Pause);
-        internal static string Command_Reset => GetStringResource(_vmBrowserResourceManager, "VMReset_Name", StringsFallback.Command_Reset);
-        internal static string Command_Resume => GetStringResource(_vmBrowserResourceManager, "VMResume_Name", StringsFallback.Command_Resume);
-        internal static string Command_Save => GetStringResource(_vmBrowserResourceManager, "VMSaveState_Name", StringsFallback.Command_Save);
-        internal static string Command_ShutDown => GetStringResource(_vmBrowserResourceManager, "VMShutDown_Name", StringsFallback.Command_ShutDown);
-        internal static string Command_Start => GetStringResource(_vmBrowserResourceManager, "VMStart_Name", StringsFallback.Command_Start);
-        internal static string Command_TurnOff => GetStringResource(_vmBrowserResourceManager, "VMTurnOff_Name", StringsFallback.Command_TurnOff);
-        internal static Icon Icon_HyperV { get; }
-        internal static string Menu_AllVirtualMachines => Strings.Menu_AllVirtualMachines;
-        internal static string Message_ConfirmationReset => GetStringResource(_clientResourceManager, "ConfirmationReset", StringsFallback.Message_ConfirmationReset);
-        internal static string Message_ConfirmationResetMultiple => GetStringResource(_clientResourceManager, "ConfirmationResetMultiple", StringsFallback.Message_ConfirmationResetMultiple);
-        internal static string Message_ConfirmationShutDown => GetStringResource(_clientResourceManager, "ConfirmationShutdown", StringsFallback.Message_ConfirmationShutDown);
-        internal static string Message_ConfirmationShutDownMultiple => GetStringResource(_clientResourceManager, "ConfirmationShutdownMultiple", StringsFallback.Message_ConfirmationShutDownMultiple);
-        internal static string Message_ConfirmationTurnOff => GetStringResource(_clientResourceManager, "ConfirmationTurnoff", StringsFallback.Message_ConfirmationTurnOff);
-        internal static string Message_ConfirmationTurnOffMultiple => GetStringResource(_clientResourceManager, "ConfirmationTurnoffMultiple", StringsFallback.Message_ConfirmationTurnOffMultiple);
-        internal static string Message_OpenVMConnectFailed => GetStringResource(_vmBrowserResourceManager, "Message_OpenVMConnectFailed", StringsFallback.Message_OpenVMConnectFailed);
-        internal static string Message_PauseVMFailed => GetStringResource(_vmBrowserResourceManager, "Message_PauseVMFailed_Format", StringsFallback.Message_PauseVMFailed);
-        internal static string Message_PauseVMFailedMultiple => GetStringResource(_vmBrowserResourceManager, "Message_PauseVMFailed", StringsFallback.Message_PauseVMFailedMultiple);
-        internal static string Message_PowerOffVMFailed => GetStringResource(_vmBrowserResourceManager, "Message_PowerOffFailed_Format", StringsFallback.Message_PowerOffVMFailed);
-        internal static string Message_PowerOffVMFailedMultiple => GetStringResource(_vmBrowserResourceManager, "Message_PowerOffVMFailed", StringsFallback.Message_PowerOffVMFailed);
-        internal static string Message_ResetVMFailed => GetStringResource(_vmBrowserResourceManager, "Message_ResetVMFailed_Format", StringsFallback.Message_ResetVMFailed);
-        internal static string Message_ResetVMFailedMultiple => GetStringResource(_vmBrowserResourceManager, "Message_ResetVMFailed", StringsFallback.Message_ResetVMFailedMultiple);
-        internal static string Message_ResumeVMFailed => GetStringResource(_vmBrowserResourceManager, "Message_ResumeVMFailed", StringsFallback.Message_ResumeVMFailedMultiple);
-        internal static string Message_ResumeVMFailedMultiple => GetStringResource(_vmBrowserResourceManager, "Message_ResumeVMFailed", StringsFallback.Message_ResumeVMFailedMultiple);
-        internal static string Message_SaveStateVMFailed => GetStringResource(_vmBrowserResourceManager, "Message_SaveStateVMFailed_Format", StringsFallback.Message_SaveStateVMFailed);
-        internal static string Message_SaveStateVMFailedMultiple => GetStringResource(_vmBrowserResourceManager, "Message_SaveStateVMFailed", StringsFallback.Message_SaveStateVMFailedMultiple);
-        internal static string Message_ShutDownVMFailed => GetStringResource(_vmBrowserResourceManager, "Message_ShutDownVMFailed", StringsFallback.Message_ShutDownVMFailedMultiple);
-        internal static string Message_ShutDownVMFailedMultiple => GetStringResource(_vmBrowserResourceManager, "Message_ShutDownVMFailed", StringsFallback.Message_ShutDownVMFailedMultiple);
-        internal static string Message_StartVMFailed => GetStringResource(_vmBrowserResourceManager, "Message_StartVMFailed_Format", StringsFallback.Message_StartVMFailed);
-        internal static string Message_StartVMFailedMultiple => GetStringResource(_vmBrowserResourceManager, "Message_StartVMFailed", StringsFallback.Message_StartVMFailedMultiple);
-        internal static string State_Critical => GetStringResource(_vmBrowserResourceManager, "VMOnFailureStateFormat", StringsFallback.State_Critical);
-        internal static string State_Off => GetStringResource(_vmBrowserResourceManager, "DDDDDD", StringsFallback.State_Off);
-        internal static string State_Paused => GetStringResource(_vmBrowserResourceManager, "DDDDDD", StringsFallback.State_Paused);
-        internal static string State_Running => GetStringResource(_vmBrowserResourceManager, "rrrrrrr", StringsFallback.State_Running);
-        internal static string State_Saved => GetStringResource(_vmBrowserResourceManager, "dddddddd", StringsFallback.State_Saved);
-        internal static string State_Unknown => GetStringResource(_vmBrowserResourceManager, "dddddddd", StringsFallback.State_Unknown);
-        internal static string Title_ResetMachine => GetStringResource(_clientResourceManager, "ConfirmationResetTitle", StringsFallback.Title_ResetMachine);
-        internal static string Title_ShutDownMachine => GetStringResource(_clientResourceManager, "ConfirmationShutdownTitle", StringsFallback.Title_ShutDownMachine);
-        internal static string Title_TurnOffMachine => GetStringResource(_clientResourceManager, "ConfirmationTurnoffTitle", StringsFallback.Title_TurnOffMachine);
-        internal static string Toast_CriticalState => Strings.Toast_CriticalState;
-        internal static string String_UnknownVirtualMachine => Strings.String_UnknownVirtualMachine;
+        public static string Button_DontReset => GetStringResource(_clientResourceManager, "ConfirmationResetButton2", StringsFallback.Button_DontReset);
+        public static string Button_DontShutDown => GetStringResource(_clientResourceManager, "ConfirmationShutdownButton2", StringsFallback.Button_DontShutDown);
+        public static string Button_DontTurnOff => GetStringResource(_clientResourceManager, "ConfirmationTurnoffButton2", StringsFallback.Button_DontTurnOff);
+        public static string Button_Reset => GetStringResource(_clientResourceManager, "ConfirmationResetButton1", StringsFallback.Button_Reset);
+        public static string Button_ShutDown => GetStringResource(_clientResourceManager, "ConfirmationShutdownButton1", StringsFallback.Button_ShutDown);
+        public static string Button_TurnOff => GetStringResource(_clientResourceManager, "ConfirmationTurnoffButton1", StringsFallback.Button_TurnOff);
+        public static string Command_Connect => GetStringResource(_vmBrowserResourceManager, "VMOpen_Name", StringsFallback.Command_Connect);
+        public static string Command_HyperVManager => GetStringResource(_vmBrowserResourceManager, "SnapInNode_DisplayName", StringsFallback.Menu_HyperVManager);
+        public static string Command_Pause => GetStringResource(_vmBrowserResourceManager, "VMPause_Name", StringsFallback.Command_Pause);
+        public static string Command_Reset => GetStringResource(_vmBrowserResourceManager, "VMReset_Name", StringsFallback.Command_Reset);
+        public static string Command_Resume => GetStringResource(_vmBrowserResourceManager, "VMResume_Name", StringsFallback.Command_Resume);
+        public static string Command_Save => GetStringResource(_vmBrowserResourceManager, "VMSaveState_Name", StringsFallback.Command_Save);
+        public static string Command_ShutDown => GetStringResource(_vmBrowserResourceManager, "VMShutDown_Name", StringsFallback.Command_ShutDown);
+        public static string Command_Start => GetStringResource(_vmBrowserResourceManager, "VMStart_Name", StringsFallback.Command_Start);
+        public static string Command_TurnOff => GetStringResource(_vmBrowserResourceManager, "VMTurnOff_Name", StringsFallback.Command_TurnOff);
+        public static Icon Icon_HyperV { get; }
+        public static string Menu_AllVirtualMachines => Strings.Menu_AllVirtualMachines;
+        public static string Message_ConfirmationReset => GetStringResource(_clientResourceManager, "ConfirmationReset", StringsFallback.Message_ConfirmationReset);
+        public static string Message_ConfirmationResetMultiple => GetStringResource(_clientResourceManager, "ConfirmationResetMultiple", StringsFallback.Message_ConfirmationResetMultiple);
+        public static string Message_ConfirmationShutDown => GetStringResource(_clientResourceManager, "ConfirmationShutdown", StringsFallback.Message_ConfirmationShutDown);
+        public static string Message_ConfirmationShutDownMultiple => GetStringResource(_clientResourceManager, "ConfirmationShutdownMultiple", StringsFallback.Message_ConfirmationShutDownMultiple);
+        public static string Message_ConfirmationTurnOff => GetStringResource(_clientResourceManager, "ConfirmationTurnoff", StringsFallback.Message_ConfirmationTurnOff);
+        public static string Message_ConfirmationTurnOffMultiple => GetStringResource(_clientResourceManager, "ConfirmationTurnoffMultiple", StringsFallback.Message_ConfirmationTurnOffMultiple);
+        public static string Message_OpenVMConnectFailed => GetStringResource(_vmBrowserResourceManager, "Message_OpenVMConnectFailed", StringsFallback.Message_OpenVMConnectFailed);
+        public static string Message_PauseVMFailed => GetStringResource(_vmBrowserResourceManager, "Message_PauseVMFailed_Format", StringsFallback.Message_PauseVMFailed);
+        public static string Message_PauseVMFailedMultiple => GetStringResource(_vmBrowserResourceManager, "Message_PauseVMFailed", StringsFallback.Message_PauseVMFailedMultiple);
+        public static string Message_PowerOffVMFailed => GetStringResource(_vmBrowserResourceManager, "Message_PowerOffFailed_Format", StringsFallback.Message_PowerOffVMFailed);
+        public static string Message_PowerOffVMFailedMultiple => GetStringResource(_vmBrowserResourceManager, "Message_PowerOffVMFailed", StringsFallback.Message_PowerOffVMFailed);
+        public static string Message_ResetVMFailed => GetStringResource(_vmBrowserResourceManager, "Message_ResetVMFailed_Format", StringsFallback.Message_ResetVMFailed);
+        public static string Message_ResetVMFailedMultiple => GetStringResource(_vmBrowserResourceManager, "Message_ResetVMFailed", StringsFallback.Message_ResetVMFailedMultiple);
+        public static string Message_ResumeVMFailed => GetStringResource(_vmBrowserResourceManager, "Message_ResumeVMFailed", StringsFallback.Message_ResumeVMFailedMultiple);
+        public static string Message_ResumeVMFailedMultiple => GetStringResource(_vmBrowserResourceManager, "Message_ResumeVMFailed", StringsFallback.Message_ResumeVMFailedMultiple);
+        public static string Message_SaveStateVMFailed => GetStringResource(_vmBrowserResourceManager, "Message_SaveStateVMFailed_Format", StringsFallback.Message_SaveStateVMFailed);
+        public static string Message_SaveStateVMFailedMultiple => GetStringResource(_vmBrowserResourceManager, "Message_SaveStateVMFailed", StringsFallback.Message_SaveStateVMFailedMultiple);
+        public static string Message_ShutDownVMFailed => GetStringResource(_vmBrowserResourceManager, "Message_ShutDownVMFailed", StringsFallback.Message_ShutDownVMFailedMultiple);
+        public static string Message_ShutDownVMFailedMultiple => GetStringResource(_vmBrowserResourceManager, "Message_ShutDownVMFailed", StringsFallback.Message_ShutDownVMFailedMultiple);
+        public static string Message_StartVMFailed => GetStringResource(_vmBrowserResourceManager, "Message_StartVMFailed_Format", StringsFallback.Message_StartVMFailed);
+        public static string Message_StartVMFailedMultiple => GetStringResource(_vmBrowserResourceManager, "Message_StartVMFailed", StringsFallback.Message_StartVMFailedMultiple);
+        public static string State_Critical => GetStringResource(_vmBrowserResourceManager, "VMOnFailureStateFormat", StringsFallback.State_Critical);
+        public static string State_Off => GetStringResource(_vmBrowserResourceManager, "DDDDDD", StringsFallback.State_Off);
+        public static string State_Paused => GetStringResource(_vmBrowserResourceManager, "DDDDDD", StringsFallback.State_Paused);
+        public static string State_Running => GetStringResource(_vmBrowserResourceManager, "rrrrrrr", StringsFallback.State_Running);
+        public static string State_Saved => GetStringResource(_vmBrowserResourceManager, "dddddddd", StringsFallback.State_Saved);
+        public static string State_Unknown => GetStringResource(_vmBrowserResourceManager, "dddddddd", StringsFallback.State_Unknown);
+        public static string Title_ResetMachine => GetStringResource(_clientResourceManager, "ConfirmationResetTitle", StringsFallback.Title_ResetMachine);
+        public static string Title_ShutDownMachine => GetStringResource(_clientResourceManager, "ConfirmationShutdownTitle", StringsFallback.Title_ShutDownMachine);
+        public static string Title_TurnOffMachine => GetStringResource(_clientResourceManager, "ConfirmationTurnoffTitle", StringsFallback.Title_TurnOffMachine);
+        public static string Toast_CriticalState => Strings.Toast_CriticalState;
+        public static string String_UnknownVirtualMachine => Strings.String_UnknownVirtualMachine;
 
         #endregion
 
@@ -120,10 +120,15 @@ namespace HyperVTray.Helpers
 
         #endregion
 
-        #region Internal Static
+        #region Public Static
 
-        internal static void Initialize(string hyperVInstallFolder)
+        /// <summary>
+        /// Tells <see cref="ResourceHelper"/> to try and create <see cref="ResourceManager"/> instances for the Hyper-V Tools resources.
+        /// </summary>
+        /// <param name="hyperVInstallFolder">The path Hyper-V Tools are installed to.</param>
+        public static void LoadExternalResources(string hyperVInstallFolder)
         {
+            // Check that the supplied Hyper-V Tools install folder exists.
             if (Directory.Exists(hyperVInstallFolder))
             {
                 // Handle the AssemblyResolve event to manually load missing assemblies, which the Hyper-V tools might request.
@@ -142,7 +147,7 @@ namespace HyperVTray.Helpers
                         }
                         catch
                         {
-                            // We couldn't load the assembly, so we'll just swallow the exception and return fall through to return null.
+                            // We couldn't load the assembly, so we'll just swallow the exception and fall through to return null.
                         }
                     }
 
@@ -152,6 +157,8 @@ namespace HyperVTray.Helpers
 
                 // Attempt to load the Hyper-V assemblies we'll use for resources and create a `ResourceManager` instance for each so we
                 // can load the resources from it.
+
+                // Microsoft.Virtualization.Client.dll
                 var clientAssemblyPath = Path.Combine(hyperVInstallFolder, "Microsoft.Virtualization.Client.dll");
                 if (File.Exists(clientAssemblyPath))
                 {
@@ -167,6 +174,7 @@ namespace HyperVTray.Helpers
                     }
                 }
 
+                // Microsoft.Virtualization.Client.VMBrowser.dll
                 var vmBrowserAssemblyPath = Path.Combine(hyperVInstallFolder, "Microsoft.Virtualization.Client.VMBrowser.dll");
                 if (File.Exists(vmBrowserAssemblyPath))
                 {
