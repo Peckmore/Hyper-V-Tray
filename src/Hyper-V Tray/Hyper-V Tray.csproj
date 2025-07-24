@@ -18,8 +18,8 @@
 		<OutputPath>$(BaseOutputPath)</OutputPath>
 		<AssemblyName>hvtray</AssemblyName>
 		<PublishSingleFile>true</PublishSingleFile>
-		<AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
-		<AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 
 		<!-- Metadata -->
 		<Version>1.0.0</Version>

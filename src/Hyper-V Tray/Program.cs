@@ -81,9 +81,14 @@ namespace HyperVTray
         }
         private static void NotifyIcon_MouseClick(object? sender, MouseEventArgs e)
         {
-            // The user has single-clicked the tray icon, so we'll generate the context menu then show it.
+            // The user has single-clicked the tray icon, so we'll generate the context menu...
             GenerateContextMenu();
+
+            // ...and then show it.
             NotifyIcon.ShowContextMenu(ContextMenu);
+
+            // Once the menu is gone we'll clear the menu items, as these are rebuilt every time, so no point them hanging around.
+            ContextMenu.MenuItems.Clear();
         }
         private static void SystemEvents_DisplaySettingsChanged(object? sender, EventArgs e)
         {
