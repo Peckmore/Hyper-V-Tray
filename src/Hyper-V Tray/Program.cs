@@ -40,14 +40,9 @@ namespace HyperVTray
         {
             // Create our notification icon to place in the tray.
             NotifyIcon = new NotifyIcon();
-            NotifyIcon.DoubleClick += NotifyIcon_DoubleClick;
-            NotifyIcon.MouseClick += NotifyIcon_MouseClick;
-            
+
             // Create our context menu instance which we'll display whenever the icon is clicked.
             ContextMenu = new ContextMenu();
-
-            // Listen for display settings changes so we can handle DPI changes.
-            SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
 
             // Get the Assembly Title, or application friendly name as a fallback.
             ApplicationName = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyTitleAttribute>()?.Title ?? AppDomain.CurrentDomain.FriendlyName;
@@ -509,9 +504,14 @@ namespace HyperVTray
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
 
-                    // Show our tray icon.
-                    NotifyIcon.Visible = true;
+                    // Listen for display settings changes so we can handle DPI changes.
+                    SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+
+                    // Show our tray icon and hook up click events.
                     SetTrayIcon();
+                    NotifyIcon.Visible = true;
+                    NotifyIcon.DoubleClick += NotifyIcon_DoubleClick;
+                    NotifyIcon.MouseClick += NotifyIcon_MouseClick;
 
                     // Check whether the Hyper-V Tools folder exists and, if so, grab or load the required resources.
                     _hyperVInstallFolder = @$"{Environment.GetEnvironmentVariable("ProgramFiles")}\Hyper-V\";
