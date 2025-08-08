@@ -79,6 +79,51 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Off.
+        /// </summary>
+        internal static string State_Off {
+            get {
+                return ResourceManager.GetString("State_Off", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paused.
+        /// </summary>
+        internal static string State_Paused {
+            get {
+                return ResourceManager.GetString("State_Paused", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Running.
+        /// </summary>
+        internal static string State_Running {
+            get {
+                return ResourceManager.GetString("State_Running", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved.
+        /// </summary>
+        internal static string State_Saved {
+            get {
+                return ResourceManager.GetString("State_Saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        internal static string State_Unknown {
+            get {
+                return ResourceManager.GetString("State_Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown Virtual Machine.
         /// </summary>
         internal static string String_UnknownVirtualMachine {

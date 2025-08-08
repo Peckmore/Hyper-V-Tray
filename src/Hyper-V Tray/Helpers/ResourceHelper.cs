@@ -88,11 +88,11 @@ namespace HyperVTray.Helpers
         public static string Message_StartVMFailed => GetStringResource(_vmBrowserResourceManager, "Message_StartVMFailed_Format", StringsFallback.Message_StartVMFailed);
         public static string Message_StartVMFailedMultiple => GetStringResource(_vmBrowserResourceManager, "Message_StartVMFailed", StringsFallback.Message_StartVMFailedMultiple);
         public static string State_Critical => GetStringResource(_vmBrowserResourceManager, "VMOnFailureStateFormat", StringsFallback.State_Critical);
-        public static string State_Off => GetStringResource(_vmBrowserResourceManager, "DDDDDD", StringsFallback.State_Off);
-        public static string State_Paused => GetStringResource(_vmBrowserResourceManager, "DDDDDD", StringsFallback.State_Paused);
-        public static string State_Running => GetStringResource(_vmBrowserResourceManager, "rrrrrrr", StringsFallback.State_Running);
-        public static string State_Saved => GetStringResource(_vmBrowserResourceManager, "dddddddd", StringsFallback.State_Saved);
-        public static string State_Unknown => GetStringResource(_vmBrowserResourceManager, "dddddddd", StringsFallback.State_Unknown);
+        public static string State_Off => Strings.State_Off;
+        public static string State_Paused => Strings.State_Paused;
+        public static string State_Running => Strings.State_Running;
+        public static string State_Saved => Strings.State_Saved;
+        public static string State_Unknown => Strings.State_Unknown;
         public static string Title_ResetMachine => GetStringResource(_clientResourceManager, "ConfirmationResetTitle", StringsFallback.Title_ResetMachine);
         public static string Title_ShutDownMachine => GetStringResource(_clientResourceManager, "ConfirmationShutdownTitle", StringsFallback.Title_ShutDownMachine);
         public static string Title_TurnOffMachine => GetStringResource(_clientResourceManager, "ConfirmationTurnoffTitle", StringsFallback.Title_TurnOffMachine);

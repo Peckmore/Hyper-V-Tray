@@ -123,6 +123,21 @@
   <data name="Message_OpenHyperVManagerFailed" xml:space="preserve">
     <value>An error occurred while attempting to launch Hyper-V Manager.</value>
   </data>
+  <data name="State_Off" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="State_Paused" xml:space="preserve">
+    <value>Paused</value>
+  </data>
+  <data name="State_Running" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="State_Saved" xml:space="preserve">
+    <value>Saved</value>
+  </data>
+  <data name="State_Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
   <data name="String_UnknownVirtualMachine" xml:space="preserve">
     <value>Unknown Virtual Machine</value>
   </data>
