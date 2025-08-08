@@ -1,4 +1,5 @@
 ﻿using HyperVTray.Resources;
+using Microsoft.Win32;
 using System;
 using System.Drawing;
 using System.IO;
@@ -26,21 +27,19 @@ namespace HyperVTray.Helpers
 
         #endregion
 
+        #region Events
+
+        public static event EventHandler? ThemeChanged;
+        #endregion
+        
         #region Construction
 
         static ResourceHelper()
         {
-            // Load the appropriate icon, depending on whether we are running on Windows 8 and later.
-            if (Environment.OSVersion.Version < new Version(8, 0))
-            {
-                // Before Windows 8, use the classic icon.
-                Icon_HyperV = GetIconResource("HyperV_Classic");
-            }
-            else
-            {
-                // Windows 8 or later, use the modern icon.
-                Icon_HyperV = GetIconResource("HyperV");
-            }
+            LoadIcons();
+
+            // We'll hook into the event for user preference changes, to update the icon if the user changes light/dark mode.
+            SystemEvents.UserPreferenceChanged += SystemEvents_UserPreferenceChanged;
         }
 
         #endregion
@@ -62,7 +61,9 @@ namespace HyperVTray.Helpers
         public static string Command_ShutDown => GetStringResource(_vmBrowserResourceManager, "VMShutDown_Name", StringsFallback.Command_ShutDown);
         public static string Command_Start => GetStringResource(_vmBrowserResourceManager, "VMStart_Name", StringsFallback.Command_Start);
         public static string Command_TurnOff => GetStringResource(_vmBrowserResourceManager, "VMTurnOff_Name", StringsFallback.Command_TurnOff);
-        public static Icon Icon_HyperV { get; }
+        public static Icon Icon_HyperV_Critical { get; private set; }
+        public static Icon Icon_HyperV_Off { get; private set; }
+        public static Icon Icon_HyperV_Running { get; private set; }
         public static string Menu_AllVirtualMachines => Strings.Menu_AllVirtualMachines;
         public static string Message_ConfirmationReset => GetStringResource(_clientResourceManager, "ConfirmationReset", StringsFallback.Message_ConfirmationReset);
         public static string Message_ConfirmationResetMultiple => GetStringResource(_clientResourceManager, "ConfirmationResetMultiple", StringsFallback.Message_ConfirmationResetMultiple);
@@ -102,6 +103,22 @@ namespace HyperVTray.Helpers
 
         #region Methods
 
+        #region Event Handlers
+
+        private static void SystemEvents_UserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        {
+            if (e.Category == UserPreferenceCategory.General)
+            {
+                // The user may have changed their theme preferences, so reload our icons (light/dark mode).
+                LoadIcons();
+
+                // Notify listeners that the theme (and therefore icons) have changed.
+                ThemeChanged?.Invoke(null, EventArgs.Empty);
+            }
+        }
+
+        #endregion
+
         #region Private Static
 
         private static Icon GetIconResource(string filename)
@@ -118,11 +135,28 @@ namespace HyperVTray.Helpers
             // Attempt to get a string from the Hyper-V resources, and return the fallback value if the resource could not be found.
             return resourceManager?.GetString(resourceName) ?? fallbackValue;
         }
+        private static void LoadIcons()
+        {
+            bool isDarkMode;
+             
+            // If the WebView2 profile is set to auto, we'll check the registry to see whether the app should be in light or dark mode.
+            using (var themeRegistryKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"))
+            {
+                isDarkMode = (themeRegistryKey?.GetValue("AppsUseLightTheme") as int? ?? 1) == 0;
+            }
+
+            // Determine the theme to identify which icons to load.
+            var theme = isDarkMode ? "Dark" : "Light";
+
+            // Load our icon resources based on the system theme.
+            Icon_HyperV_Critical = GetIconResource($"HyperV_Critical_{theme}");
+            Icon_HyperV_Off = GetIconResource($"HyperV_Off_{theme}");
+            Icon_HyperV_Running = GetIconResource($"HyperV_Running_{theme}");
+        }
 
         #endregion
 
         #region Public Static
-
         /// <summary>
         /// Tells <see cref="ResourceHelper"/> to try and create <see cref="ResourceManager"/> instances for the Hyper-V Tools resources.
         /// </summary>

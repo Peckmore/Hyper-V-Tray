@@ -68,6 +68,9 @@ namespace HyperVTray
             // We've received an event that a VM has changed to a state that we should notify the user for, so we'll show a toast to let
             // the user know.
             ShowToast(e.Name, e.State);
+
+            // Update the tray icon accordingly.
+            SetTrayIcon(false);
         }
         private static void NotifyIcon_DoubleClick(object? sender, EventArgs e)
         {
@@ -85,10 +88,15 @@ namespace HyperVTray
             // Once the menu is gone we'll clear the menu items, as these are rebuilt every time, so no point them hanging around.
             ContextMenu.MenuItems.Clear();
         }
+        private static void ResourceHelper_ThemeChanged(object? sender, EventArgs e)
+        {
+            // Theme settings have changed, we'll regenerate the tray icon.
+            SetTrayIcon(false);
+        }
         private static void SystemEvents_DisplaySettingsChanged(object? sender, EventArgs e)
         {
             // Display settings have changed - in-case it's a DPI change, we'll regenerate the tray icon.
-            SetTrayIcon();
+            SetTrayIcon(true);
         }
 
         #endregion
@@ -504,12 +512,14 @@ namespace HyperVTray
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
 
+                    // Listen for theme setting changes so we can reload our icon.
+                    ResourceHelper.ThemeChanged += ResourceHelper_ThemeChanged;
+
                     // Listen for display settings changes so we can handle DPI changes.
                     SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
 
                     // Show our tray icon and hook up click events.
-                    SetTrayIcon();
-                    NotifyIcon.Visible = true;
+                    SetTrayIcon(false);
                     NotifyIcon.DoubleClick += NotifyIcon_DoubleClick;
                     NotifyIcon.MouseClick += NotifyIcon_MouseClick;
 
@@ -568,11 +578,32 @@ namespace HyperVTray
                 ShowError(ResourceHelper.Message_OpenHyperVManagerFailed);
             }
         }
-        private static void SetTrayIcon()
+        private static void SetTrayIcon(bool remove)
         {
-            // Set the tray icon to the correct icon for the size reported by Windows.
-            NotifyIcon.Icon = new Icon(ResourceHelper.Icon_HyperV, SystemInformation.SmallIconSize);
+            // Check if we've been asked to remove the icon before updating it.
+            if (remove)
+            {
+                NotifyIcon.Visible = false;
+            }
+
+            // Determine which icon to show in the tray.
+            var icon = ResourceHelper.Icon_HyperV_Off;
+            var vms = HyperVHelper.GetVirtualMachines();
+            if (vms.Any(vm => HyperVHelper.IsCriticalState((VirtualMachineState)Convert.ToInt32(vm["EnabledState"]))))
+            {
+                icon = ResourceHelper.Icon_HyperV_Critical;
+            }
+            else if (vms.Any(vm => HyperVHelper.IsRunningState((VirtualMachineState)Convert.ToInt32(vm["EnabledState"]))))
+            {
+                icon = ResourceHelper.Icon_HyperV_Running;
+            }
+
+            // Set the tray icon to the correct size reported by Windows.
             Debug.WriteLine($"Icon size: {SystemInformation.SmallIconSize.Width}x{SystemInformation.SmallIconSize.Height}");
+            NotifyIcon.Icon = new Icon(icon, SystemInformation.SmallIconSize);
+
+            // Restore the icon if it was removed. This should have no effect if it is already visible.
+            NotifyIcon.Visible = true;
         }
         private static void ShowError(string heading, string text = "")
         {
