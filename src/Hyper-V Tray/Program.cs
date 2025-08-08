@@ -27,6 +27,7 @@ namespace HyperVTray
         #region Fields
 
         private static string? _hyperVInstallFolder;
+        private static bool _isDoubleClicked;
         private static string? _vmConnectPath;
         private static string? _vmManagerPath;
         private static readonly ContextMenu ContextMenu;
@@ -72,13 +73,28 @@ namespace HyperVTray
             // Update the tray icon accordingly.
             SetTrayIcon(false);
         }
-        private static void NotifyIcon_DoubleClick(object? sender, EventArgs e)
+        private static void NotifyIcon_MouseDoubleClick(object? sender, MouseEventArgs e)
         {
+            // Set a flag to indicate a double-click has occurred.
+            _isDoubleClicked = true;
+
             // The user has double-clicked the tray icon, lets open Hyper-V Manager.
             OpenHyperVManager();
         }
         private static void NotifyIcon_MouseClick(object? sender, MouseEventArgs e)
         {
+            // Check whether this click is effectively the second click of a double-click.
+            if (_isDoubleClicked)
+            {
+                // We are in the second click of a double-click, so clear our flag.
+                _isDoubleClicked = false;
+
+                // When the first click occurs, the context menu will be shown. However, as soon as the double-click event fires, the menu
+                // will close, and the double-click handler will kick in. When the second click event fires, we don't want to do anything
+                // as the user has double-clicked, so we'll just return.
+                return;
+            }
+
             // The user has single-clicked the tray icon, so we'll generate the context menu...
             GenerateContextMenu();
 
@@ -520,8 +536,8 @@ namespace HyperVTray
 
                     // Show our tray icon and hook up click events.
                     SetTrayIcon(false);
-                    NotifyIcon.DoubleClick += NotifyIcon_DoubleClick;
                     NotifyIcon.MouseClick += NotifyIcon_MouseClick;
+                    NotifyIcon.MouseDoubleClick += NotifyIcon_MouseDoubleClick;
 
                     // Check whether the Hyper-V Tools folder exists and, if so, grab or load the required resources.
                     _hyperVInstallFolder = @$"{Environment.GetEnvironmentVariable("ProgramFiles")}\Hyper-V\";
