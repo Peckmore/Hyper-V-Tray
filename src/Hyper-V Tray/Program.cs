@@ -615,7 +615,7 @@ namespace HyperVTray
                 AllowCancel = false,
                 AllowMinimize = false,
                 Buttons = new() { TaskDialogButton.Close },
-                Caption = AppDomain.CurrentDomain.FriendlyName,
+                Caption = Application.ProductName,
                 Heading = heading,
                 Icon = TaskDialogIcon.Error,
                 Text = text
