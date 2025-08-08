@@ -629,16 +629,16 @@ namespace HyperVTray
             // We'll show an OS toast/tray notification to the user. This varies depending on the OS version, but Windows will handle this
             // for us.
 
-            // Get a friendly display string for the VM state.
-            var stateString = HyperVHelper.VmStateToString(state);
-
             // Determine whether we are reporting a critical state.
             var isCritical = HyperVHelper.IsCriticalState(state);
+
+            // Get a friendly display string for the VM state.
+            var stateString = HyperVHelper.VmStateToString(state);
 
             // If reporting a critical state, vary the displayed message accordingly.
             if (isCritical)
             {
-                stateString = $"{ResourceHelper.Toast_CriticalState}\n{stateString}";
+                stateString = $"{ResourceHelper.Toast_CriticalState}\n({stateString})";
             }
 
             // Show our toast/notification.
