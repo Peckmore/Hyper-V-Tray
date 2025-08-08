@@ -120,6 +120,9 @@
   <data name="Menu_AllVirtualMachines" xml:space="preserve">
     <value>All Virtual Machines</value>
   </data>
+  <data name="Message_OpenHyperVManagerFailed" xml:space="preserve">
+    <value>An error occurred while attempting to launch Hyper-V Manager.</value>
+  </data>
   <data name="String_UnknownVirtualMachine" xml:space="preserve">
     <value>Unknown Virtual Machine</value>
   </data>

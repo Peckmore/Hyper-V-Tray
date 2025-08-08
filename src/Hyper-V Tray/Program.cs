@@ -565,7 +565,7 @@ namespace HyperVTray
             {
                 // If something happened then there isn't much we can do, so we'll just show a generic error message to let the user know
                 // that we couldn't open Hyper-V Manager.
-                //ShowError(ResourceHelper.Message_OpenVMConnectFailed);
+                ShowError(ResourceHelper.Message_OpenHyperVManagerFailed);
             }
         }
         private static void SetTrayIcon()

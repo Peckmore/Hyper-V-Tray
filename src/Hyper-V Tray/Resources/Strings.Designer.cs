@@ -70,6 +70,15 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while attempting to launch Hyper-V Manager..
+        /// </summary>
+        internal static string Message_OpenHyperVManagerFailed {
+            get {
+                return ResourceManager.GetString("Message_OpenHyperVManagerFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown Virtual Machine.
         /// </summary>
         internal static string String_UnknownVirtualMachine {

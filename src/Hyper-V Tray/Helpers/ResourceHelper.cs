@@ -70,6 +70,7 @@ namespace HyperVTray.Helpers
         public static string Message_ConfirmationShutDownMultiple => GetStringResource(_clientResourceManager, "ConfirmationShutdownMultiple", StringsFallback.Message_ConfirmationShutDownMultiple);
         public static string Message_ConfirmationTurnOff => GetStringResource(_clientResourceManager, "ConfirmationTurnoff", StringsFallback.Message_ConfirmationTurnOff);
         public static string Message_ConfirmationTurnOffMultiple => GetStringResource(_clientResourceManager, "ConfirmationTurnoffMultiple", StringsFallback.Message_ConfirmationTurnOffMultiple);
+        public static string Message_OpenHyperVManagerFailed => Strings.Message_OpenHyperVManagerFailed;
         public static string Message_OpenVMConnectFailed => GetStringResource(_vmBrowserResourceManager, "Message_OpenVMConnectFailed", StringsFallback.Message_OpenVMConnectFailed);
         public static string Message_PauseVMFailed => GetStringResource(_vmBrowserResourceManager, "Message_PauseVMFailed_Format", StringsFallback.Message_PauseVMFailed);
         public static string Message_PauseVMFailedMultiple => GetStringResource(_vmBrowserResourceManager, "Message_PauseVMFailed", StringsFallback.Message_PauseVMFailedMultiple);
