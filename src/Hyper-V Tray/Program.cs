@@ -335,102 +335,107 @@ namespace HyperVTray
             var isAnyPaused = false;
             var isAnyRunning = false;
 
-            // Create a menu entry for each VM.
-            foreach (var virtualMachine in virtualMachines)
+            // If we have any virtual machines, generate the context menu entries for each VM.
+            if (virtualMachines.Any())
             {
-                // Get the VM name.
-                var virtualMachineName = virtualMachine["ElementName"].ToString();
-
-                if (virtualMachineName != null)
+                // Create a menu entry for each VM.
+                foreach (var virtualMachine in virtualMachines)
                 {
-                    // Get the VM state.
-                    var virtualMachineState = (VirtualMachineState)Convert.ToInt32(virtualMachine["EnabledState"]);
+                    // Get the VM name.
+                    var virtualMachineName = virtualMachine["ElementName"].ToString();
 
-                    // Generate the menu entry title for the VM.
-                    var virtualMachineMenuTitle = virtualMachineName;
-                    if (virtualMachineState != VirtualMachineState.Disabled) // Stopped
+                    if (virtualMachineName != null)
                     {
-                        virtualMachineMenuTitle += $" ({HyperVHelper.VmStateToString(virtualMachineState)})";
-                    }
+                        // Get the VM state.
+                        var virtualMachineState = (VirtualMachineState)Convert.ToInt32(virtualMachine["EnabledState"]);
 
-                    // Create VM menu item.
-                    var virtualMachineMenu = new MenuItem(virtualMachineMenuTitle) { Name = virtualMachineName };
-                    var isPaused = HyperVHelper.IsPausedState(virtualMachineState);
-                    var isOffOrSaved = HyperVHelper.IsOffState(virtualMachineState) || HyperVHelper.IsSavedState(virtualMachineState);
-
-                    // Now generate control menu items for VM.
-
-                    // Connect
-                    if (_vmConnectPath != null)
-                    {
-                        // Only generate if we found the tool installed.
-
-                        var connectMenuItem = new MenuItem(ResourceHelper.Command_Connect, (_, _) => ConnectToVirtualMachine(virtualMachineName));
-                        virtualMachineMenu.MenuItems.Add(connectMenuItem);
-                        virtualMachineMenu.MenuItems.Add(new MenuItem("-"));
-                    }
-
-                    if (isOffOrSaved)
-                    {
-                        // We have at least one machine that is powered off, so we can set this flag to true.
-                        isAnyOffOrSaved = true;
-
-                        // Start
-                        var startMenuItem = new MenuItem(ResourceHelper.Command_Start, (_, _) => ControlVirtualMachine(virtualMachineName, VirtualMachineState.Enabled));
-                        virtualMachineMenu.MenuItems.Add(startMenuItem);
-                    }
-                    else
-                    {
-                        // Turn Off
-                        var stopMenuItem = new MenuItem(ResourceHelper.Command_TurnOff, (_, _) => ControlVirtualMachine(virtualMachineName, VirtualMachineState.Disabled));
-                        virtualMachineMenu.MenuItems.Add(stopMenuItem);
-
-                        // Shut Down
-                        if (!isPaused)
+                        // Generate the menu entry title for the VM.
+                        var virtualMachineMenuTitle = virtualMachineName;
+                        if (virtualMachineState != VirtualMachineState.Disabled) // Stopped
                         {
-                            // We have at least one machine that is running, so we can set this flag to true.
-                            isAnyRunning = true;
-
-                            var shutMenuDownItem = new MenuItem(ResourceHelper.Command_ShutDown, (_, _) => ControlVirtualMachine(virtualMachineName, VirtualMachineState.ShutDown));
-                            virtualMachineMenu.MenuItems.Add(shutMenuDownItem);
+                            virtualMachineMenuTitle += $" ({HyperVHelper.VmStateToString(virtualMachineState)})";
                         }
 
-                        // Save
-                        var saveMenuStateItem = new MenuItem(ResourceHelper.Command_Save, (_, _) => ControlVirtualMachine(virtualMachineName, VirtualMachineState.Offline));
-                        virtualMachineMenu.MenuItems.Add(saveMenuStateItem);
+                        // Create VM menu item.
+                        var virtualMachineMenu = new MenuItem(virtualMachineMenuTitle) { Name = virtualMachineName };
+                        var isPaused = HyperVHelper.IsPausedState(virtualMachineState);
+                        var isOffOrSaved = HyperVHelper.IsOffState(virtualMachineState) || HyperVHelper.IsSavedState(virtualMachineState);
 
-                        virtualMachineMenu.MenuItems.Add(new MenuItem("-"));
-                        if (isPaused)
+                        // Now generate control menu items for VM.
+
+                        // Connect
+                        if (_vmConnectPath != null)
                         {
-                            // We have at least one machine that is paused, so we can set this flag to true.
-                            isAnyPaused = true;
+                            // Only generate if we found the tool installed.
 
-                            // Resume
-                            var resumeMenuItem = new MenuItem(ResourceHelper.Command_Resume, (_, _) => ControlVirtualMachine(virtualMachineName, VirtualMachineState.Resuming));
-                            virtualMachineMenu.MenuItems.Add(resumeMenuItem);
+                            var connectMenuItem = new MenuItem(ResourceHelper.Command_Connect, (_, _) => ConnectToVirtualMachine(virtualMachineName));
+                            virtualMachineMenu.MenuItems.Add(connectMenuItem);
+                            virtualMachineMenu.MenuItems.Add(new MenuItem("-"));
+                        }
+
+                        if (isOffOrSaved)
+                        {
+                            // We have at least one machine that is powered off, so we can set this flag to true.
+                            isAnyOffOrSaved = true;
+
+                            // Start
+                            var startMenuItem = new MenuItem(ResourceHelper.Command_Start, (_, _) => ControlVirtualMachine(virtualMachineName, VirtualMachineState.Enabled));
+                            virtualMachineMenu.MenuItems.Add(startMenuItem);
                         }
                         else
                         {
-                            // Pause
-                            var pauseMenuItem = new MenuItem(ResourceHelper.Command_Pause, (_, _) => ControlVirtualMachine(virtualMachineName, VirtualMachineState.Quiesce));
-                            virtualMachineMenu.MenuItems.Add(pauseMenuItem);
+                            // Turn Off
+                            var stopMenuItem = new MenuItem(ResourceHelper.Command_TurnOff, (_, _) => ControlVirtualMachine(virtualMachineName, VirtualMachineState.Disabled));
+                            virtualMachineMenu.MenuItems.Add(stopMenuItem);
+
+                            // Shut Down
+                            if (!isPaused)
+                            {
+                                // We have at least one machine that is running, so we can set this flag to true.
+                                isAnyRunning = true;
+
+                                var shutMenuDownItem = new MenuItem(ResourceHelper.Command_ShutDown, (_, _) => ControlVirtualMachine(virtualMachineName, VirtualMachineState.ShutDown));
+                                virtualMachineMenu.MenuItems.Add(shutMenuDownItem);
+                            }
+
+                            // Save
+                            var saveMenuStateItem = new MenuItem(ResourceHelper.Command_Save, (_, _) => ControlVirtualMachine(virtualMachineName, VirtualMachineState.Offline));
+                            virtualMachineMenu.MenuItems.Add(saveMenuStateItem);
+
+                            virtualMachineMenu.MenuItems.Add(new MenuItem("-"));
+                            if (isPaused)
+                            {
+                                // We have at least one machine that is paused, so we can set this flag to true.
+                                isAnyPaused = true;
+
+                                // Resume
+                                var resumeMenuItem = new MenuItem(ResourceHelper.Command_Resume, (_, _) => ControlVirtualMachine(virtualMachineName, VirtualMachineState.Resuming));
+                                virtualMachineMenu.MenuItems.Add(resumeMenuItem);
+                            }
+                            else
+                            {
+                                // Pause
+                                var pauseMenuItem = new MenuItem(ResourceHelper.Command_Pause, (_, _) => ControlVirtualMachine(virtualMachineName, VirtualMachineState.Quiesce));
+                                virtualMachineMenu.MenuItems.Add(pauseMenuItem);
+                            }
+
+                            // Reset
+                            var resetMenuItem = new MenuItem(ResourceHelper.Command_Reset, (_, _) => ControlVirtualMachine(virtualMachineName, VirtualMachineState.Reset));
+                            virtualMachineMenu.MenuItems.Add(resetMenuItem);
                         }
 
-                        // Reset
-                        var resetMenuItem = new MenuItem(ResourceHelper.Command_Reset, (_, _) => ControlVirtualMachine(virtualMachineName, VirtualMachineState.Reset));
-                        virtualMachineMenu.MenuItems.Add(resetMenuItem);
+                        // Add VM menu item to root menu.
+                        ContextMenu.MenuItems.Add(virtualMachineMenu);
                     }
-
-                    // Add VM menu item to root menu.
-                    ContextMenu.MenuItems.Add(virtualMachineMenu);
                 }
+
+                // Create a separator after all of the VM entries.
+                ContextMenu.MenuItems.Add(new MenuItem("-"));
             }
 
             // If there are more than 2 virtual machines, we also create an "All Virtual Machines" menu.
             if (virtualMachines.Count > 1)
             {
-                ContextMenu.MenuItems.Add(new MenuItem("-"));
-
                 // Create a root menu item for the `All Virtual Machines` entry.
                 var vmItem = new MenuItem(ResourceHelper.Menu_AllVirtualMachines);
 
@@ -494,21 +499,25 @@ namespace HyperVTray
 
                 // Add the VM to the context menu.
                 ContextMenu.MenuItems.Add(vmItem);
+
+                // Create a separator after the "All Virtual Machines" entry.
+                ContextMenu.MenuItems.Add(new MenuItem("-"));
             }
 
-            // Add `Hyper-V Manager` menu item.
+            // Add "Hyper-V Manager" menu item.
             if (_vmManagerPath != null)
             {
                 // Only generate if we found the tool installed.
 
-                ContextMenu.MenuItems.Add(new MenuItem("-"));
                 var managerItem = new MenuItem(ResourceHelper.Command_HyperVManager);
                 managerItem.Click += (_, _) => OpenHyperVManager();
                 ContextMenu.MenuItems.Add(managerItem);
+
+                // Create a separator after the "Hyper-V Manager" entry.
+                ContextMenu.MenuItems.Add(new MenuItem("-"));
             }
 
             // Add `Exit` menu item.
-            ContextMenu.MenuItems.Add(new MenuItem("-"));
             var exitItem = new MenuItem("Exit");
             exitItem.Click += (_, _) => ExitApplication();
             ContextMenu.MenuItems.Add(exitItem);
