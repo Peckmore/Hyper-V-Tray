@@ -75,7 +75,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="NetEx.Legacy.WinForms" Version="0.0.3" />
-		<PackageReference Include="System.Management" Version="9.0.4" />
+		<PackageReference Include="System.Management" Version="9.0.8" />
 	</ItemGroup>
 
 </Project>
