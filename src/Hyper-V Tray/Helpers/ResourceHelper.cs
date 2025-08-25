@@ -71,6 +71,8 @@ namespace HyperVTray.Helpers
         public static string Message_ConfirmationShutDownMultiple => GetStringResource(_clientResourceManager, "ConfirmationShutdownMultiple", StringsFallback.Message_ConfirmationShutDownMultiple);
         public static string Message_ConfirmationTurnOff => GetStringResource(_clientResourceManager, "ConfirmationTurnoff", StringsFallback.Message_ConfirmationTurnOff);
         public static string Message_ConfirmationTurnOffMultiple => GetStringResource(_clientResourceManager, "ConfirmationTurnoffMultiple", StringsFallback.Message_ConfirmationTurnOffMultiple);
+        public static string Message_HyperVNotFound => Strings.Message_HyperVNotFound;
+        public static string Message_NoHyperVPermission => Strings.Message_NoHyperVPermission;
         public static string Message_OpenHyperVManagerFailed => Strings.Message_OpenHyperVManagerFailed;
         public static string Message_OpenVMConnectFailed => GetStringResource(_vmBrowserResourceManager, "Message_OpenVMConnectFailed", StringsFallback.Message_OpenVMConnectFailed);
         public static string Message_PauseVMFailed => GetStringResource(_vmBrowserResourceManager, "Message_PauseVMFailed_Format", StringsFallback.Message_PauseVMFailed);
@@ -93,6 +95,8 @@ namespace HyperVTray.Helpers
         public static string State_Running => Strings.State_Running;
         public static string State_Saved => Strings.State_Saved;
         public static string State_Unknown => Strings.State_Unknown;
+        public static string Title_HyperVNotFound => Strings.Title_HyperVNotFound;
+        public static string Title_NoHyperVPermission => Strings.Title_NoHyperVPermission;
         public static string Title_ResetMachine => GetStringResource(_clientResourceManager, "ConfirmationResetTitle", StringsFallback.Title_ResetMachine);
         public static string Title_ShutDownMachine => GetStringResource(_clientResourceManager, "ConfirmationShutdownTitle", StringsFallback.Title_ShutDownMachine);
         public static string Title_TurnOffMachine => GetStringResource(_clientResourceManager, "ConfirmationTurnoffTitle", StringsFallback.Title_TurnOffMachine);

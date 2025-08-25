@@ -144,4 +144,16 @@
   <data name="Toast_CriticalState" xml:space="preserve">
     <value>Virtual Machine is in a critical state.</value>
   </data>
+  <data name="Message_HyperVNotFound" xml:space="preserve">
+    <value>Hyper-V could not be found on this machine, or it is not running. Please ensure that the Hyper-V role has been enabled and that Hyper-V is running.</value>
+  </data>
+  <data name="Message_NoHyperVPermission" xml:space="preserve">
+    <value>You do not have permission to manage Hyper-V. Please ensure you are a member of the "Hyper-V Administrators" group, or run the application again as administrator.</value>
+  </data>
+  <data name="Title_HyperVNotFound" xml:space="preserve">
+    <value>Hyper-V Not Running</value>
+  </data>
+  <data name="Title_NoHyperVPermission" xml:space="preserve">
+    <value>Hyper-V Permission Error</value>
+  </data>
 </root>

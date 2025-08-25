@@ -3,10 +3,13 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.DirectoryServices.AccountManagement;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Principal;
+using System.ServiceProcess;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -19,6 +22,8 @@ namespace HyperVTray
         #region Private
 
         private const int BalloonTipTimeout = 2500;
+        private const string HyperVAdministratorsGroupSid = "S-1-5-32-578";
+        private const string HyperVManagementServiceName = "vmms";
 
         #endregion
 
@@ -536,6 +541,58 @@ namespace HyperVTray
                     // Application setup.
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
+
+                    // Before we launch, we'll do some checks to see if Hyper-V is enabled, running, and whether we have permission to
+                    // access it.
+
+                    // See if we can get the Hyper-V Management Service, which is required for Hyper-V to function.
+                    using (var hyperVService = ServiceController.GetServices().FirstOrDefault(serviceController => serviceController.ServiceName.Equals(HyperVManagementServiceName)))
+                    {
+                        // If we can't find the service, or the service is not running, we let the user know and exit.
+                        if (hyperVService?.Status != ServiceControllerStatus.Running)
+                        {
+                            // We can't find Hyper-V on the system, so let the user know...
+                            ShowError(ResourceHelper.Title_HyperVNotFound, ResourceHelper.Message_HyperVNotFound);
+
+                            // ...then exit the application.
+                            return;
+                        }
+                    }
+
+                    // Now we'll check whether we have permission to access Hyper-V. We'll first check if we're running elevated, as if we
+                    // are then we definitely have access, so don't need to bother checking user permissions.
+                    if (!Environment.IsPrivilegedProcess)
+                    {
+                        // We're not running elevated, so we'll check whether the user is a member of the "Hyper-V Administrators" group.
+
+                        var haveHyperVAccess = false;
+
+                        // First get an object for the current user.
+                        using (var userIdentity = WindowsIdentity.GetCurrent())
+                        {
+                            // Then get the security identifier (SID) for the user.
+                            if (userIdentity.User is { } userSecurityIdentity)
+                            {
+                                using (PrincipalContext context = new PrincipalContext(ContextType.Machine))
+                                {
+                                    // Check whether the user is a member of the "Hyper-V Administrators" group.
+                                    UserPrincipal user = UserPrincipal.FindByIdentity(context, IdentityType.Sid, userSecurityIdentity.ToString());
+                                    GroupPrincipal group = GroupPrincipal.FindByIdentity(context, IdentityType.Sid, HyperVAdministratorsGroupSid);
+                                    haveHyperVAccess = user != null && group?.Members.Contains(user) == true;
+                                }
+                            }
+                        }
+
+                        // If we can't find the group, or the user isn't a member of the group, we let the user know and exit.
+                        if (!haveHyperVAccess)
+                        {
+                            // We don't have permission to access Hyper-V, so let the user know...
+                            ShowError(ResourceHelper.Title_NoHyperVPermission, ResourceHelper.Message_NoHyperVPermission);
+
+                            // ...then exit the application.
+                            return;
+                        }
+                    }
 
                     // Listen for theme setting changes so we can reload our icon.
                     ResourceHelper.ThemeChanged += ResourceHelper_ThemeChanged;

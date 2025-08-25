@@ -70,6 +70,24 @@ namespace HyperVTray.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hyper-V could not be found on this machine, or it is not running. Please ensure that the Hyper-V role has been enabled and that Hyper-V is running..
+        /// </summary>
+        internal static string Message_HyperVNotFound {
+            get {
+                return ResourceManager.GetString("Message_HyperVNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You do not have permission to manage Hyper-V. Please ensure you are a member of the &quot;Hyper-V Administrators&quot; group, or run the application again as administrator..
+        /// </summary>
+        internal static string Message_NoHyperVPermission {
+            get {
+                return ResourceManager.GetString("Message_NoHyperVPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while attempting to launch Hyper-V Manager..
         /// </summary>
         internal static string Message_OpenHyperVManagerFailed {
@@ -129,6 +147,24 @@ namespace HyperVTray.Resources {
         internal static string String_UnknownVirtualMachine {
             get {
                 return ResourceManager.GetString("String_UnknownVirtualMachine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hyper-V Not Running.
+        /// </summary>
+        internal static string Title_HyperVNotFound {
+            get {
+                return ResourceManager.GetString("Title_HyperVNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hyper-V Permission Error.
+        /// </summary>
+        internal static string Title_NoHyperVPermission {
+            get {
+                return ResourceManager.GetString("Title_NoHyperVPermission", resourceCulture);
             }
         }
         
